@@ -2,6 +2,12 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var isReady = true;
+var clip;
+
+// function to return random number 1-3
+function randomWholeNum() {
+  return Math.floor(Math.random() * 3);
+}
 
 //Testing audio
 //var forniteSucks = new Audio('480.mp4');
@@ -44,7 +50,21 @@ client.on('message', async message => {
         
         voiceChannel.join().then(connection => {
             
-            const dispatcher = connection.playFile("./assets/league_file.mp3");
+            randomNum = randomWholeNum();
+            switch(randomNum) {
+                case 1:
+                    clip = "./assets/league_file.mp3";
+                    break;
+                case 2:
+                    clip = "./assets/league_file.mp3";
+                    break;
+                case 3:
+                    clip = "./assets/league_file.mp3";
+                default
+                    clip = "./assets/league_file.mp3";
+            };
+            
+            const dispatcher = connection.playFile(clip);
             dispatcher.on("end", end => {
                 voiceChannel.leave();
             });
