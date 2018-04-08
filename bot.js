@@ -5,19 +5,14 @@ client.on('ready', () => {
     console.log('I am ready!');
 });
 
-client.on('message', message => {
-    /*
-    if (message.content === 'ping') {
-    	message.channel.send('PONG!');
-  	}
-    */
+client.on('message', async message => {
+    
+    if(message.author.bot) return;
+    
+    //if(message.content.indexOf(config.prefix) !== 0) return;
+    
     message.reply('Stay in Plat Bud!');
-});
 
-client.on('message', message => {
-    if (message.content === 'bing') {
-    	message.reply('BONG!');
-  	}
 });
 
 // THIS  MUST  BE  THIS  WAY
