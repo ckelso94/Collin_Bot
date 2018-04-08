@@ -24,7 +24,7 @@ client.on('message', async message => {
         if(message.content.includes('fortnite')) {
             message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
             //Testing audio
-            message.channel.play({files: ["./assets/480.mp4]});
+            message.channel.play({files: ["./assets/480.mp4"]});
         }
         
     }*/
