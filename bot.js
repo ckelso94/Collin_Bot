@@ -13,7 +13,6 @@ client.on('message', async message => {
     
     if(message.author.username === 'HazyArc14') {
       message.reply('Stay in Plat Bud!');
-      message.react(':dark_sunglasses:');
     }
 
 });
