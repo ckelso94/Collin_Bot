@@ -11,7 +11,7 @@ client.on('message', async message => {
     
     //if(message.content.indexOf(config.prefix) !== 0) return;
     
-    if(message.author.username === 'HazyArc14') {
+    if(message.author.username === 'Gopherit') {
       message.reply('Stay in Plat Bud!');
     }
 
