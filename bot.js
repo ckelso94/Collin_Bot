@@ -35,7 +35,7 @@ client.on('message', async message => {
     
     if (message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league')) {
         message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
-        message.channel.play({files: ["./assets/480.mp4]});
+        message.channel.play({files: ["./assets/480.mp4"]});
     }
     
     /*
