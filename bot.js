@@ -4,6 +4,12 @@ const client = new Discord.Client();
 const talkedRecently = new Set();
 
 var isReady = true;
+var clip;
+
+// function to return random number 1-3
+function randomWholeNum() {
+  return Math.floor(Math.random() * 3);
+}
 
 client.on('ready', () => {
     console.log('I am ready!');
@@ -28,11 +34,26 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
 
             voiceChannel.join().then(connection => {
+              
+              randomNum = randomWholeNum();
+              switch(randomNum) {
+                  case 1:
+                      clip = "./assets/league_file.mp3";
+                      break;
+                  case 2:
+                      clip = "./assets/league_file.mp3";
+                      break;
+                  case 3:
+                      clip = "./assets/league_file.mp3";
+                default:
+                      clip = "./assets/league_file.mp3";
+              };
 
-                const dispatcher = connection.playFile('./assets/league_file.mp3');
-                dispatcher.on("end", end => {
-                    voiceChannel.leave();
-                });
+              const dispatcher = connection.playFile(clip);
+
+              dispatcher.on("end", end => {
+                  voiceChannel.leave();
+              });
 
             }).catch(err => console.log(err));
 
