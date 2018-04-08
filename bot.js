@@ -45,6 +45,7 @@ client.on('message', async message => {
                       break;
                   case 3:
                       clip = "./assets/league_file.mp3";
+                      break;
                 default:
                       clip = "./assets/league_file.mp3";
               };
