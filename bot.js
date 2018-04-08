@@ -46,7 +46,7 @@ client.on('message', async message => {
                   case 3:
                       clip = "./assets/audio/sameGame.mp3";
                       break;
-                  case 4;
+                  case 4:
                       message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
                       break;
                 default:
