@@ -38,7 +38,6 @@ client.on('message', async message => {
     
     if (isReady && (message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league'))) {
         message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
-        //message.channel.play({files: ["./assets/480.mp4"]});
         
         isReady = false;
         var voiceChannel = message.member.voiceChannel;
@@ -49,8 +48,10 @@ client.on('message', async message => {
             dispatcher.on("end", end => {
                 voiceChannel.leave();
             });
-            
-        }.catch(err => console.log(err));
+
+        }).catch(err => console.log(err));
+
+        isReady = true;
         
     }
     
