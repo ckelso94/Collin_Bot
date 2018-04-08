@@ -15,8 +15,14 @@ client.on('message', async message => {
         message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
     }
     
-    if(message.content.includes('aram' || 'league' || 'arams')) {
-        message.channel.send("Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+    if(message.content.includes('aram')) {
+        message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+    }
+    if(message.content.includes('league')) {
+        message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+    }
+    if(message.content.includes('arams')) {
+        message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
     }
     
     /*
