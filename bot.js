@@ -15,7 +15,7 @@ client.on('message', async message => {
         message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
     }
     
-    if(message.content.includes(' aram ') || message.content.includes(' arams ') || message.content.includes(' league ')) {
+    if(message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league')) {
         message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
     }
     
