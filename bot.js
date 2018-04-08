@@ -44,7 +44,7 @@ client.on('message', async message => {
         
         voiceChannel.join().then(connection => {
             
-            const dispatcher = connection.playFile('./assets/league_file.mp3');
+            const dispatcher = connection.playFile("./assets/league_file.mp3");
             dispatcher.on("end", end => {
                 voiceChannel.leave();
             });
