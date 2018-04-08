@@ -1,10 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-var isReady = true;
+const talkedRecently = new Set();
 
-//Testing audio
-//var forniteSucks = new Audio('480.mp4');
+var isReady = true;
 
 client.on('ready', () => {
     console.log('I am ready!');
@@ -14,52 +13,40 @@ client.on('message', async message => {
     
     if(message.author.bot) return;
     
-    //if(message.content.indexOf(config.prefix) !== 0) return;
+    if (talkedRecently.has(message.author.id)) {
+            message.channel.send("Wait 1 minute before getting typing this again. - " + message.author);
+    } else {
     
-    /*const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    
-    for (var i = 0; i < args.length; i++) {
-        
-        if(message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league')) {
-            message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
-        }
-        
-        if(message.content.includes('fortnite')) {
+        if (message.content.includes('fortnite')) {
             message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
-            //Testing audio
-            message.channel.play({files: ["./assets/480.mp4"]});
+        }
+
+        if (isReady && (message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league'))) {
+            message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+
+            isReady = false;
+            var voiceChannel = message.member.voiceChannel;
+
+            voiceChannel.join().then(connection => {
+
+                const dispatcher = connection.playFile('./assets/league_file.mp3');
+                dispatcher.on("end", end => {
+                    voiceChannel.leave();
+                });
+
+            }).catch(err => console.log(err));
+
+            isReady = true;
+
         }
         
-    }*/
-    
-    if (message.content.includes('fortnite')) {
-        message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
-    }
-    
-    if (isReady && (message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league'))) {
-        message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
-        
-        isReady = false;
-        var voiceChannel = message.member.voiceChannel;
-        
-        voiceChannel.join().then(connection => {
-            
-            const dispatcher = connection.playFile('./assets/league_file.mp3');
-            dispatcher.on("end", end => {
-                voiceChannel.leave();
-            });
-
-        }).catch(err => console.log(err));
-
-        isReady = true;
+        talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 60000);
         
     }
-    
-    /*
-    if (message.author.username === 'HazyArc14') {
-        message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
-    }
-    */
 
 });
 
