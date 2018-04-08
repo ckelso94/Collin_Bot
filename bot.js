@@ -46,36 +46,48 @@ client.on('message', async message => {
             randomNum = randomWholeNum();
             switch(randomNum) {
                 case 1:
-                    voiceChannel.join().then(connection => {
-                        const dispatcher = connection.playFile("./assets/audio/sameGame.mp3");
-                        dispatcher.on("end", end => {
-                            voiceChannel.leave();
+                    try {
+                        voiceChannel.join().then(connection => {
+                            const dispatcher = connection.playFile("./assets/audio/sameGame.mp3");
+                            dispatcher.on("end", end => {
+                              voiceChannel.leave();
+                            });
                         });
-                    }).catch(err => console.log(err));
+                    } catch(err) {
+                        message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});   
+                    }
                     break;
-
+                
                 case 2:
-                    voiceChannel.join().then(connection => {
-                        const dispatcher = connection.playFile("./assets/audio/magicResist.mp3");
-                        dispatcher.on("end", end => {
-                            voiceChannel.leave();
+                    try{
+                        voiceChannel.join().then(connection => {
+                            const dispatcher = connection.playFile("./assets/audio/magicResist.mp3");
+                            dispatcher.on("end", end => {
+                              voiceChannel.leave();
+                            });
                         });
-                    }).catch(err => console.log(err));
+                    } catch(err) {
+                        message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});   
+                    }
                     break;
-
-                case 3:                
-                    voiceChannel.join().then(connection => {
-                        const dispatcher = connection.playFile("./assets/audio/goodOleArams.mp3");
-                        dispatcher.on("end", end => {
-                            voiceChannel.leave();
-                        });
-                    }).catch(err => console.log(err));
+                
+                case 3:
+                    try{
+                        voiceChannel.join().then(connection => {
+                            const dispatcher = connection.playFile("./assets/audio/goodOleArams.mp3");
+                            dispatcher.on("end", end => {
+                              voiceChannel.leave();
+                            });
+                        }); 
+                    } catch(err) {
+                        message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});   
+                    }
                     break;
-
+                
                 case 4:
                     message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
                     break;
-
+                
               default:
                     message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
             };
