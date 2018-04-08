@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 var user;
 var status;
-var overwatch)data
+var overwatch_data;
 
 client.on('ready', () => {
     console.log('I am ready!');
