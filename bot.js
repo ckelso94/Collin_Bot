@@ -15,7 +15,7 @@ client.on('message', async message => {
     
     //if(message.content.indexOf(config.prefix) !== 0) return;
     
-    if(message.content.indexOf('!overwatch ' === 0) {
+    /*if(message.content.indexOf('!overwatch ' === 0) {
        message.channel.send('test');
     
         var options = {
@@ -32,9 +32,9 @@ client.on('message', async message => {
                 
                 
     
-    }
+    }*/
     
-    if(message.author.username === 'temp') {
+    if(message.author.username === 'HazyArc14') {
       message.reply('Stay in Plat Bud!');
     }
 
