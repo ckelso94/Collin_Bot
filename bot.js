@@ -8,7 +8,7 @@ var clip;
 
 // function to return random number 1-3
 function randomWholeNum() {
-  return Math.floor(Math.random() * 3);
+  return Math.floor(Math.random() * 4);
 }
 
 client.on('ready', () => {
@@ -28,7 +28,7 @@ client.on('message', async message => {
         }
 
         if (isReady && (message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league'))) {
-            message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+            
 
             isReady = false;
             var voiceChannel = message.member.voiceChannel;
@@ -38,16 +38,19 @@ client.on('message', async message => {
               randomNum = randomWholeNum();
               switch(randomNum) {
                   case 1:
-                      clip = "./assets/league_file.mp3";
+                      clip = "./assets/audio/sameGame.mp3";
                       break;
                   case 2:
-                      clip = "./assets/league_file.mp3";
+                      clip = "./assets/audio/sameGame.mp3";
                       break;
                   case 3:
-                      clip = "./assets/league_file.mp3";
+                      clip = "./assets/audio/sameGame.mp3";
+                      break;
+                  case 4;
+                      message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
                       break;
                 default:
-                      clip = "./assets/league_file.mp3";
+                      message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
               };
 
               const dispatcher = connection.playFile(clip);
