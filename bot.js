@@ -41,7 +41,7 @@ client.on('message', async message => {
                       clip = "./assets/audio/sameGame.mp3";
                       break;
                   case 2:
-                      clip = "./assets/audio/sameGame.mp3";
+                      clip = "./assets/audio/goodOleArams.mp3";
                       break;
                   case 3:
                       clip = "./assets/audio/sameGame.mp3";
