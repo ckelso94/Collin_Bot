@@ -8,7 +8,7 @@ var clip;
 
 // function to return random number 1-4
 function randomWholeNum() {
-  return Math.floor(Math.random() * 4);
+  return Math.floor(Math.random() * 4) + 1;
 }
 
 client.on('ready', () => {
