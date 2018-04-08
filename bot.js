@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
- const client = new Discord.Client();
+const client = new Discord.Client();
  //Testing audio
 var forniteSucks = new Audio('480.mp3');
  
