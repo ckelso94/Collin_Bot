@@ -11,7 +11,9 @@ client.on('message', async message => {
     
     //if(message.content.indexOf(config.prefix) !== 0) return;
     
-    message.reply('Stay in Plat Bud!');
+    if(message.author.username === 'Gopherit') {
+      message.reply('Stay in Plat Bud!');
+    }
 
 });
 
