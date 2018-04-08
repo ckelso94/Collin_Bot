@@ -4,7 +4,6 @@ const client = new Discord.Client();
 const talkedRecently = new Set();
 
 var isReady = true;
-var clip;
 
 // function to return random number 1-4
 function randomWholeNum() {
@@ -33,36 +32,44 @@ client.on('message', async message => {
             isReady = false;
             var voiceChannel = message.member.voiceChannel;
 
-            voiceChannel.join().then(connection => {
-              
-              randomNum = randomWholeNum();
-              switch(randomNum) {
-                  case 1:
-                      clip = "./assets/audio/sameGame.mp3";
-                      break;
-                  case 2:
-                      clip = "./assets/audio/goodOleArams.mp3";
-                      break;
-                  case 3:
-                      clip = "./assets/audio/sameGame.mp3";
-                      break;
-                  case 4:
-                      message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
-                      break;
-                default:
-                      message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
-              };
-
-              const dispatcher = connection.playFile(clip);
-
-              dispatcher.on("end", end => {
-                  voiceChannel.leave();
-              });
-
-            }).catch(err => console.log(err));
+            randomNum = randomWholeNum();
+            switch(randomNum) {
+                case 1:
+                    voiceChannel.join().then(connection => {
+                        const dispatcher = connection.playFile("./assets/audio/sameGame.mp3");
+                        dispatcher.on("end", end => {
+                          voiceChannel.leave();
+                        });
+                    }).catch(err => console.log(err));
+                    break;
+                
+                case 2:
+                    voiceChannel.join().then(connection => {
+                        const dispatcher = connection.playFile("./assets/audio/sameGame.mp3");
+                        dispatcher.on("end", end => {
+                          voiceChannel.leave();
+                        });
+                    }).catch(err => console.log(err));
+                    break;
+                
+                case 3:                
+                    voiceChannel.join().then(connection => {
+                        const dispatcher = connection.playFile("./assets/audio/sameGame.mp3");
+                        dispatcher.on("end", end => {
+                          voiceChannel.leave();
+                        });
+                    }).catch(err => console.log(err));
+                    break;
+                
+                case 4:
+                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+                    break;
+                
+              default:
+                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+            };
 
             isReady = true;
-
         }
         
         talkedRecently.add(message.author.id);
