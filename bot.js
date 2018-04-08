@@ -15,6 +15,10 @@ client.on('message', async message => {
         message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
     }
     
+    if(message.content.includes('aram' || 'league' || 'arams')) {
+        message.channel.send("Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
+    }
+    
     /*
     if(message.author.username === 'HazyArc14') {
         message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
