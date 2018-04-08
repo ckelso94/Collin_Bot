@@ -121,7 +121,7 @@ client.on('message', async message => {
 
     }
 
-    if (isReady && (message.content.includes('aram') || message.content.includes('arams')) {
+    if (isReady && (message.content.includes('aram') || message.content.includes('arams'))) {
 
         if (leagueTalkedRecently.has(message.author.id)) {
             return;
