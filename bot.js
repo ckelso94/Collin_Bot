@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 //Testing audio
-var forniteSucks = new Audio('480.mp4');
+var forniteSucks = new Audio('480.mp3');
 
 client.on('ready', () => {
     console.log('I am ready!');
@@ -24,7 +24,7 @@ client.on('message', async message => {
         if(message.content.includes('fortnite')) {
             message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
             //Testing audio
-            message.channel.play({files: ["./assets/480.mp4"]});
+            message.channel.play({files: ["./assets/480.mp3"]});
         }
         
     }*/
@@ -36,7 +36,7 @@ client.on('message', async message => {
     if (message.content.includes('aram') || message.content.includes('arams') || message.content.includes('league')) {
         message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});
         //testing audio
-        message.channel.play({files: ["./assets/480.mp4"]});
+        message.channel.play({files: ["./assets/480.mp3"]});
     }
     
     /*
