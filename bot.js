@@ -11,9 +11,15 @@ client.on('message', async message => {
     
     //if(message.content.indexOf(config.prefix) !== 0) return;
     
+    if(message.content.includes('fortnite')) {
+        message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
+    }
+    
+    /*
     if(message.author.username === 'HazyArc14') {
         message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
     }
+    */
 
 });
 
