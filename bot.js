@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+const blackTalkedRecently = new Set();
 const leagueTalkedRecently = new Set();
 const fortniteTalkedRecently = new Set();
 const kirkCmdTalkedRecently = new Set();
@@ -20,6 +21,21 @@ client.on('ready', () => {
 client.on('message', async message => {
     
     if(message.author.bot) return;
+        
+    if (message.content.includes('black') && (server.id === '93106003628806144')) {
+
+        if (blackTalkedRecently.has(message.author.id)) {
+            return;
+        } else {
+            message.channel.send("<:cmonbruh:428715322569129995>");
+        }
+
+        blackTalkedRecently.add(message.author.id);
+        setTimeout(() => {
+            blackTalkedRecently.delete(message.author.id);
+        }, 60000);
+
+    }
     
     if (message.content.includes('fortnite')) {
 
