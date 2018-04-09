@@ -22,12 +22,11 @@ client.on('message', async message => {
     
     if(message.author.bot) return;
         
-    if (message.content.toLowerCase().includes('black')){// && (message.guild.id === '93106003628806144')) {
+    if (message.content.toLowerCase().includes('black')) {
 
         if (blackTalkedRecently.has(message.author.id)) {
             return;
         } else {
-            //message.channel.send("<:cmonbruh:428715322569129995>");
             message.channel.send({files: ["./assets/cmonbruh.png"]});
         }
 
