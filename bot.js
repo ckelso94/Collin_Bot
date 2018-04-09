@@ -4,6 +4,7 @@ const client = new Discord.Client();
 const leagueTalkedRecently = new Set();
 const fortniteTalkedRecently = new Set();
 const kirkCmdTalkedRecently = new Set();
+const ziegCmdTalkedRecently = new Set();
 
 var isReady = true;
 
@@ -61,6 +62,24 @@ client.on('message', async message => {
             setTimeout(() => {
               // Removes the user from the set after a minute
               kirkCmdTalkedRecently.delete(message.author.id);
+            }, 60000);
+
+        }
+
+    }
+    
+    if (isReady && (message.content.indexOf('!zieg') === 0)) {
+
+        if (ziegCmdTalkedRecently.has(message.author.id)) {
+            return;
+        } else {
+
+            message.channel.send({files: ["./goat_fker.png"]});
+
+            ziegCmdTalkedRecently.add(message.author.id);
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              ziegCmdTalkedRecently.delete(message.author.id);
             }, 60000);
 
         }
