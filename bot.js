@@ -22,7 +22,7 @@ client.on('message', async message => {
     
     if(message.author.bot) return;
         
-    if (message.content.includes('black') && (message.guild.id === '93106003628806144')) {
+    if (message.content.toLowerCase().includes('black') && (message.guild.id === '93106003628806144')) {
 
         if (blackTalkedRecently.has(message.author.id)) {
             return;
@@ -37,7 +37,7 @@ client.on('message', async message => {
 
     }
     
-    if (message.content.includes('fortnite')) {
+    if (message.content.toLowerCase().includes('fortnite')) {
 
         if (fortniteTalkedRecently.has(message.author.id)) {
             return;
@@ -102,7 +102,7 @@ client.on('message', async message => {
 
     }
 
-    if (isReady && (message.content.includes('league'))) {
+    if (isReady && (message.content.toLowerCase().includes('league'))) {
 
         if (leagueTalkedRecently.has(message.author.id)) {
             return;
@@ -156,7 +156,7 @@ client.on('message', async message => {
 
     }
 
-    if (isReady && (message.content.includes('aram') || message.content.includes('arams'))) {
+    if (isReady && (message.content.toLowerCase().includes('aram') || message.content.toLowerCase().includes('arams'))) {
 
         if (leagueTalkedRecently.has(message.author.id)) {
             return;
