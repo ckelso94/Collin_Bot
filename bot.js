@@ -22,7 +22,7 @@ client.on('message', async message => {
     
     if(message.author.bot) return;
         
-    if (message.content.includes('black') && (message.server.id === '93106003628806144')) {
+    if (message.content.includes('black') && (message.guild.id === '93106003628806144')) {
 
         if (blackTalkedRecently.has(message.author.id)) {
             return;
