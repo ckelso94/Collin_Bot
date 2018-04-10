@@ -229,7 +229,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     //93121331700195328
     
     let channels = newMember.guild.channels;
-    let genearlChannel1 = newMemeber.guild.defaultChannel;
+    let generalChannel1 = newMember.guild.defaultChannel;
     var generalChannel;
     
     for (var [key, value] of channels) {
@@ -244,7 +244,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
         if(oldUserChannel === undefined && newUserChannel !== undefined) {
 
-            genearlChannel1.send("Hey, Eeyore is here!", {files: ["./assets/eeyore.png"]}); 
+            generalChannel1.send("Hey, Eeyore is here!", {files: ["./assets/eeyore.png"]}); 
 
         } else if(newUserChannel === undefined){
 
