@@ -226,16 +226,16 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   
     let newUserChannel = newMember.voiceChannel
     let oldUserChannel = oldMember.voiceChannel
-    //93121331700195328
     
     let channels = newMember.guild.channels;
     var generalChannel = (client.guilds.get(newMember.guild.id)).channels.find("name", "general");
     
-    if (newMember.id === '148630426548699136') {
+    if (newMember.id === '93121331700195328') {
 
         randomNum = randomWholeNum(25);
+        console.log('randomNum: ' + randomNum);
         
-        if(oldUserChannel === undefined && newUserChannel !== undefined) {
+        if((oldUserChannel === undefined && newUserChannel !== undefined) && randomNum === 1) {
 
             generalChannel.send("Hey, Eeyore is here!", {files: ["./assets/eeyore.png"]}); 
 
