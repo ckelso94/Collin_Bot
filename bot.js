@@ -27,7 +27,7 @@ client.on('message', async message => {
         if (blackTalkedRecently.has(message.author.id)) {
             return;
         } else {
-            message.channel.send({files: ["./assets/cmonbruh.png"]});
+            message.channel.send({files: ["./assets/images/cmonbruh.png"]});
         }
 
         blackTalkedRecently.add(message.author.id);
@@ -42,7 +42,7 @@ client.on('message', async message => {
         if (fortniteTalkedRecently.has(message.author.id)) {
             return;
         } else {
-            message.channel.send({files: ["./assets/fortnite_sucks.jpg"]});
+            message.channel.send({files: ["./assets/images/fortnite_sucks.jpg"]});
         }
 
         fortniteTalkedRecently.add(message.author.id);
@@ -122,7 +122,7 @@ client.on('message', async message => {
             return;
         } else {
 
-            message.channel.send({files: ["./assets/goat_fker.png"]});
+            message.channel.send({files: ["./assets/images/goat_fker.png"]});
 
             ziegCmdTalkedRecently.add(message.author.id);
             setTimeout(() => {
@@ -162,7 +162,7 @@ client.on('message', async message => {
             };
             
             if (clip == "picture") {
-                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});   
+                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/images/league_of_tanks.png"]});   
             } else {
                 try {
                      voiceChannel.join().then(connection => {
@@ -172,7 +172,7 @@ client.on('message', async message => {
                         });
                     }); 
                 } catch(err) {
-                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});   
+                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/images/league_of_tanks.png"]});   
                 }
             }
 
@@ -205,7 +205,7 @@ client.on('message', async message => {
                     });
                 }); 
             } catch(err) {
-                message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/league_of_tanks.png"]});   
+                message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/images/league_of_tanks.png"]});   
             }
 
             isReady = true;
@@ -230,14 +230,15 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     let channels = newMember.guild.channels;
     var generalChannel = (client.guilds.get(newMember.guild.id)).channels.find("name", "general");
     
-    if (newMember.id === '93121331700195328') {
+    //93121331700195328
+    if (newMember.id === '148630426548699136') {
 
         randomNum = randomWholeNum(25);
         console.log('randomNum: ' + randomNum);
         
         if((oldUserChannel === undefined && newUserChannel !== undefined) && randomNum === 1) {
 
-            generalChannel.send("Hey, Eeyore is here!", {files: ["./assets/eeyore.png"]}); 
+            generalChannel.send("Hey, Eeyore is here!", {files: ["./assets/images/eeyore.png"]}); 
 
         } else if(newUserChannel === undefined){
 
