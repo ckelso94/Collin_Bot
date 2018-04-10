@@ -229,9 +229,12 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     //93121331700195328
     
     let channels = newMember.guild.channels;
+    var generalChannel;
     
     for (var [key, value] of channels) {
-      console.log(key + ' goes ' + value);
+        if (value.name.toLowerCase() === "general") {
+            generalChannel = value;
+        }
     }
     
     if (newMember.id === '148630426548699136') {
@@ -240,7 +243,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
         if(oldUserChannel === undefined && newUserChannel !== undefined) {
 
-            message.channel.send("Hey, Eeyore is here!", {files: ["./assets/eeyore.png"]}); 
+            generalChannel.send("Hey, Eeyore is here!", {files: ["./assets/eeyore.png"]}); 
 
         } else if(newUserChannel === undefined){
 
