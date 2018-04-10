@@ -6,6 +6,7 @@ const leagueTalkedRecently = new Set();
 const fortniteTalkedRecently = new Set();
 const kirkCmdTalkedRecently = new Set();
 const ziegCmdTalkedRecently = new Set();
+const windowLickerCmdTalkedRecently = new Set();
 
 var isReady = true;
 
@@ -78,6 +79,38 @@ client.on('message', async message => {
             setTimeout(() => {
               // Removes the user from the set after a minute
               kirkCmdTalkedRecently.delete(message.author.id);
+            }, 60000);
+
+        }
+
+    }
+    
+    if (isReady && (message.content.indexOf('!licker') === 0)) {
+
+        if (windowLickerCmdTalkedRecently.has(message.author.id)) {
+            return;
+        } else {
+
+            isReady = false;
+            var voiceChannel = message.member.voiceChannel;
+            
+            try {
+                 voiceChannel.join().then(connection => {
+                    const dispatcher = connection.playFile("./assets/audio/windowlicker.mp3");
+                    dispatcher.on("end", end => {
+                        voiceChannel.leave();
+                    });
+                }); 
+            } catch(err) {
+                return;   
+            }
+
+            isReady = true;
+
+            windowLickerCmdTalkedRecently.add(message.author.id);
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              windowLickerCmdTalkedRecently.delete(message.author.id);
             }, 60000);
 
         }
