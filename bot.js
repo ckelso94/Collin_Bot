@@ -10,9 +10,8 @@ const windowLickerCmdTalkedRecently = new Set();
 
 var isReady = true;
 
-// function to return random number 1-3
-function randomWholeNum() {
-    return Math.floor(Math.random() * 3) + 1;
+function randomWholeNum(value) {
+    return Math.floor(Math.random() * value) + 1;
 }
 
 client.on('ready', () => {
@@ -144,7 +143,7 @@ client.on('message', async message => {
             isReady = false;
             var voiceChannel = message.member.voiceChannel;
 
-            randomNum = randomWholeNum();
+            randomNum = randomWholeNum(3);
             switch(randomNum) {
                 case 1:
                     clip = "./assets/audio/sameGame.mp3"
@@ -222,6 +221,29 @@ client.on('message', async message => {
     }
 
 });
+
+client.on('voiceStateUpdate', (oldMember, newMember) => {
+  
+    let newUserChannel = newMember.voiceChannel
+    let oldUserChannel = oldMember.voiceChannel
+    
+    if (newMember.id === '93121331700195328') {
+
+        randomNum = randomWholeNum(25);
+        
+        if(oldUserChannel === undefined && newUserChannel !== undefined) {
+
+            message.channel.send("Hey, Eeyore is here!", {files: ["./assets/eeyore.png"]}); 
+
+        } else if(newUserChannel === undefined){
+
+            // User leaves a voice channel
+
+        }
+        
+    }
+    
+})
 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
