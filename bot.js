@@ -228,6 +228,12 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     let oldUserChannel = oldMember.voiceChannel
     //93121331700195328
     
+    let channels = newMember.guild.channels;
+    
+    for (var [key, value] of channels) {
+      console.log(key + ' goes ' + value);
+    }
+    
     if (newMember.id === '148630426548699136') {
 
         randomNum = randomWholeNum(25);
