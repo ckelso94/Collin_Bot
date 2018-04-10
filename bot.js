@@ -232,13 +232,15 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     
     //93121331700195328
     if (newMember.id === '148630426548699136') {
-
-        randomNum = randomWholeNum(25);
-        console.log('randomNum: ' + randomNum);
         
-        if((oldUserChannel === undefined && newUserChannel !== undefined) && randomNum === 1) {
-
-            generalChannel.send("Hey, Eeyore is here!", {files: ["./assets/images/eeyore.png"]}); 
+        if(oldUserChannel === undefined && newUserChannel !== undefined) {
+            
+            randomNum = randomWholeNum(15);
+            console.log('randomNum: ' + randomNum);
+            
+            if (randomNum === 1) {
+                generalChannel.send("Hey, Eeyore is here!", {files: ["./assets/images/eeyore.png"]});
+            }
 
         } else if(newUserChannel === undefined){
 
