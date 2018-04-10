@@ -226,8 +226,9 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   
     let newUserChannel = newMember.voiceChannel
     let oldUserChannel = oldMember.voiceChannel
+    //93121331700195328
     
-    if (newMember.id === '93121331700195328') {
+    if (newMember.id === '148630426548699136') {
 
         randomNum = randomWholeNum(25);
         
