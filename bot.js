@@ -231,7 +231,8 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     var generalChannel = (client.guilds.get(newMember.guild.id)).channels.find("name", "general");
     
     //93121331700195328
-    if (newMember.id === '148630426548699136') {
+    //148630426548699136
+    if (newMember.id === '93121331700195328') {
         
         if(oldUserChannel === undefined && newUserChannel !== undefined) {
             
