@@ -236,7 +236,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
         if(oldUserChannel === undefined && newUserChannel !== undefined) {
             
-            randomNum = randomWholeNum(15);
+            randomNum = randomWholeNum(30);
             console.log('randomNum: ' + randomNum);
             
             if (randomNum === 1) {
