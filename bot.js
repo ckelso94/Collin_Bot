@@ -254,13 +254,11 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     let channels = newMember.guild.channels;
     var generalChannel = (client.guilds.get(newMember.guild.id)).channels.find("name", "general");
     
-    //93121331700195328
-    //148630426548699136
-    if (newMember.id === '93121331700195328') {
+    if (newMember.id === '93105200365043712') {
         
         if(oldUserChannel === undefined && newUserChannel !== undefined) {
             
-            randomNum = randomWholeNum(30);
+            randomNum = randomWholeNum(10);
             console.log('randomNum: ' + randomNum);
             
             if (randomNum === 1) {
