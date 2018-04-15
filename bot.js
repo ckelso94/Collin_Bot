@@ -33,7 +33,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send({files: ["!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague"]});
+                 message.channel.send("!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague");
             } catch(err) {
                 return;   
             }
