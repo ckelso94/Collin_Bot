@@ -7,6 +7,7 @@ const fortniteTalkedRecently = new Set();
 const kirkCmdTalkedRecently = new Set();
 const ziegCmdTalkedRecently = new Set();
 const windowLickerCmdTalkedRecently = new Set();
+const helpCmdTalkedRecently = new Set();
 
 var isReady = true;
 
@@ -21,6 +22,33 @@ client.on('ready', () => {
 client.on('message', async message => {
     
     if(message.author.bot) return;
+    
+    if (isReady && (message.content.indexOf('!help') === 0)) {
+
+        if (helpCmdTalkedRecently.has(message.author.id)) {
+            return;
+        } else {
+
+            isReady = false;
+            var voiceChannel = message.member.voiceChannel;
+            
+            try {
+                 message.channel.send({files: ["!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague"]});
+            } catch(err) {
+                return;   
+            }
+
+            isReady = true;
+
+            helpCmdTalkedRecently.add(message.author.id);
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              helpCmdTalkedRecently.delete(message.author.id);
+            }, 60000);
+
+        }
+
+    }
         
     if (message.content.toLowerCase().includes('black')) {
 
@@ -143,7 +171,7 @@ client.on('message', async message => {
             isReady = false;
             var voiceChannel = message.member.voiceChannel;
 
-            randomNum = randomWholeNum(3);
+            randomNum = randomWholeNum(2);
             switch(randomNum) {
                 case 1:
                     clip = "./assets/audio/sameGame.mp3"
@@ -151,10 +179,6 @@ client.on('message', async message => {
                 
                 case 2:
                     clip = "./assets/audio/magicResist.mp3"
-                    break;
-                
-                case 3:
-                    clip = "picture";
                     break;
                 
               default:
