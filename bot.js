@@ -150,7 +150,7 @@ client.on('message', async message => {
             return;
         } else {
 
-            message.channel.send({files: ["./assets/images/goat_fker.png"]});
+            message.channel.send({files: ["./assets/images/goat_fucker.png"]});
 
             ziegCmdTalkedRecently.add(message.author.id);
             setTimeout(() => {
