@@ -245,7 +245,7 @@ client.on('message', async message => {
 
     }
     
-    if (isReady && (message.content.toLowerCase().includes('burrito')\
+    if (isReady && (message.content.toLowerCase().includes('burrito')
         || message.content.toLowerCase().includes('mexican')
         || message.content.toLowerCase().includes('construction')
         || message.content.toLowerCase().includes('taco bell')
