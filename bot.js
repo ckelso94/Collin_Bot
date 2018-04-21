@@ -8,6 +8,7 @@ const kirkCmdTalkedRecently = new Set();
 const ziegCmdTalkedRecently = new Set();
 const windowLickerCmdTalkedRecently = new Set();
 const helpCmdTalkedRecently = new Set();
+const mexicanCmdTalkedRecently = new Set();
 
 var isReady = true;
 
@@ -33,7 +34,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("Since Your Little Bitch Ass Can't Rememeber Shit!\nHere Are the Available Commands:\n\n!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague");
+                 message.channel.send("Since Your Little Bitch Ass Can't Rememeber Shit!\nHere Are the Available Commands:\n\n!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder\nbuilder");
             } catch(err) {
                 return;   
             }
@@ -238,6 +239,30 @@ client.on('message', async message => {
             setTimeout(() => {
               // Removes the user from the set after a minute
               leagueTalkedRecently.delete(message.author.id);
+            }, 60000);
+
+        }
+
+    }
+    
+    if (isReady && (message.content.toLowerCase().includes('burrito')\
+        || message.content.toLowerCase().includes('mexican')
+        || message.content.toLowerCase().includes('construction')
+        || message.content.toLowerCase().includes('taco bell')
+        || message.content.toLowerCase().includes('taco')
+        || message.content.toLowerCase().includes('border')
+        || message.content.toLowerCase().includes('builder'))) {
+
+        if (mexicanCmdTalkedRecently.has(message.author.id)) {
+            return;
+        } else {
+
+            message.channel.send({files: ["./assets/images/mexican.png"]});
+
+            mexicanCmdTalkedRecently.add(message.author.id);
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              mexicanCmdTalkedRecently.delete(message.author.id);
             }, 60000);
 
         }
