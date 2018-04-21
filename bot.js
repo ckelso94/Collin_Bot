@@ -34,7 +34,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("Since Your Little Bitch Ass Can't Rememeber Shit!\nHere Are the Available Commands:\n\n!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder\nbuilder");
+                 message.channel.send("Since Your Little Bitch Ass Can't Remember Shit!\nHere Are the Available Commands:\n\n!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder\nbuild\nbuilder");
             } catch(err) {
                 return;   
             }
@@ -251,6 +251,7 @@ client.on('message', async message => {
         || message.content.toLowerCase().includes('taco bell')
         || message.content.toLowerCase().includes('taco')
         || message.content.toLowerCase().includes('border')
+        || message.content.toLowerCase().includes('build')
         || message.content.toLowerCase().includes('builder'))) {
 
         if (mexicanCmdTalkedRecently.has(message.author.id)) {
