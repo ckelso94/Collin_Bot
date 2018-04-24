@@ -10,6 +10,7 @@ const windowLickerCmdTalkedRecently = new Set();
 const helpCmdTalkedRecently = new Set();
 const mexicanCmdTalkedRecently = new Set();
 const lagCmdTalkedRecently = new Set();
+const hornCmdTalkedRecently = new Set();
 
 var isReady = true;
 
@@ -172,6 +173,38 @@ client.on('message', async message => {
             setTimeout(() => {
               // Removes the user from the set after a minute
               lagCmdTalkedRecently.delete(message.author.id);
+            }, 60000);
+
+        }
+
+    }
+    
+    if (isReady && (message.content.indexOf('!horn') === 0)) {
+
+        if (hornCmdTalkedRecently.has(message.author.id)) {
+            return;
+        } else {
+
+            isReady = false;
+            var voiceChannel = message.member.voiceChannel;
+            
+            try {
+                 voiceChannel.join().then(connection => {
+                    const dispatcher = connection.playFile("./assets/audio/horn.mp3");
+                    dispatcher.on("end", end => {
+                        voiceChannel.leave();
+                    });
+                }); 
+            } catch(err) {
+                return;   
+            }
+
+            isReady = true;
+
+            hornCmdTalkedRecently.add(message.author.id);
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              hornCmdTalkedRecently.delete(message.author.id);
             }, 60000);
 
         }
