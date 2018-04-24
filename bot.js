@@ -35,7 +35,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit!\nHere Are the Available Commands:\n\n!help\n!kirk\n!zieg\n!licker\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder\nbuild\nbuilder```");
+                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit!\nHere Are the Available Commands:\n\n!help\n!kirk\n!zieg\n!licker\n!lag\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder\nbuild\nbuilder```");
             } catch(err) {
                 return;   
             }
