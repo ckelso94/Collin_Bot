@@ -40,6 +40,10 @@ client.on('message', async message => {
             } catch(err) {
                 return;   
             }
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
 
             isReady = true;
 
