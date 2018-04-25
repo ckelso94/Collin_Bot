@@ -36,7 +36,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit!\n\nHere Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder\nbuild\nbuilder```");
+                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit!\n\nHere Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder```");
             } catch(err) {
                 return;   
             }
@@ -106,6 +106,10 @@ client.on('message', async message => {
             } catch(err) {
                 return;   
             }
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
 
             isReady = true;
 
@@ -138,6 +142,10 @@ client.on('message', async message => {
             } catch(err) {
                 return;   
             }
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
 
             isReady = true;
 
@@ -170,6 +178,10 @@ client.on('message', async message => {
             } catch(err) {
                 return;   
             }
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
 
             isReady = true;
 
@@ -202,6 +214,10 @@ client.on('message', async message => {
             } catch(err) {
                 return;   
             }
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
 
             isReady = true;
 
@@ -222,6 +238,10 @@ client.on('message', async message => {
         } else {
 
             message.channel.send({files: ["./assets/images/goat_fucker.png"]});
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
 
             ziegCmdTalkedRecently.add(message.author.id);
             setTimeout(() => {
@@ -320,9 +340,7 @@ client.on('message', async message => {
         || message.content.toLowerCase().includes('construction')
         || message.content.toLowerCase().includes('taco bell')
         || message.content.toLowerCase().includes('taco')
-        || message.content.toLowerCase().includes('border')
-        || message.content.toLowerCase().includes('build')
-        || message.content.toLowerCase().includes('builder'))) {
+        || message.content.toLowerCase().includes('border'))) {
 
         if (mexicanCmdTalkedRecently.has(message.author.id)) {
             return;
