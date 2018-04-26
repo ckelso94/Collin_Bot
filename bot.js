@@ -36,7 +36,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit!\n\nHere Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco bell\ntaco\nborder```");
+                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit!\n\nHere Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
             } catch(err) {
                 return;   
             }
@@ -338,7 +338,6 @@ client.on('message', async message => {
     if (isReady && (message.content.toLowerCase().includes('burrito')
         || message.content.toLowerCase().includes('mexican')
         || message.content.toLowerCase().includes('construction')
-        || message.content.toLowerCase().includes('taco bell')
         || message.content.toLowerCase().includes('taco')
         || message.content.toLowerCase().includes('border'))) {
 
