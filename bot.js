@@ -20,7 +20,7 @@ function randomWholeNum(value) {
 
 client.on('ready', () => {
     console.log('I am ready!');
-    client.user.setGame('Your Mom!')
+    client.user.setGame('Queue Simulator')
 });
 
 client.on('message', async message => {
