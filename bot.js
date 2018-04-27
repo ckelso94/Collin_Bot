@@ -20,7 +20,12 @@ function randomWholeNum(value) {
 
 client.on('ready', () => {
     console.log('I am ready!');
-    client.user.setPresence({ game: { name: 'Queue Simulator' }, status: 'online' })
+    client.user.setPresence({
+        game: {
+          name: 'Queue Simulator',
+            type: 0
+          }
+    })
       .then(console.log)
       .catch(console.error);
 });
