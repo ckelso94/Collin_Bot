@@ -64,15 +64,15 @@ client.on('message', async message => {
         
     if (message.content.toLowerCase().includes('black')) {
 
-        if (blackTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_black")) {
             return;
         } else {
             message.channel.send({files: ["./assets/images/cmonbruh.png"]});
         }
 
-        blackTalkedRecently.add(message.author.id);
+        TalkedRecently.add(message.author.id + "_black");
         setTimeout(() => {
-            blackTalkedRecently.delete(message.author.id);
+            TalkedRecently.delete(message.author.id + "_black");
         }, 60000);
 
     }
