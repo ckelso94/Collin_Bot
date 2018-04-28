@@ -33,7 +33,7 @@ client.on('message', async message => {
     
     if (isReady && (message.content.indexOf('!help') === 0)) {
 
-        if (helpCmdTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_help")) {
             return;
         } else {
 
@@ -41,7 +41,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit!\n\nHere Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
+                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n!setGame 'Skin Flute'\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
             } catch(err) {
                 return;   
             }
@@ -52,10 +52,10 @@ client.on('message', async message => {
 
             isReady = true;
 
-            helpCmdTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_help");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              helpCmdTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_help");
             }, 60000);
 
         }
