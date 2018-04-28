@@ -12,6 +12,9 @@ const mexicanCmdTalkedRecently = new Set();
 const lagCmdTalkedRecently = new Set();
 const hornCmdTalkedRecently = new Set();
 
+var gameName;
+var allowGameNameChange = true;
+
 var isReady = true;
 
 function randomWholeNum(value) {
@@ -20,14 +23,6 @@ function randomWholeNum(value) {
 
 client.on('ready', () => {
     console.log('I am ready!');
-    client.user.setPresence({
-        game: {
-          name: 'Building Simulator',
-            type: 0
-          }
-    })
-      .then(console.log)
-      .catch(console.error);
 });
 
 client.on('message', async message => {
@@ -162,6 +157,39 @@ client.on('message', async message => {
               // Removes the user from the set after a minute
               windowLickerCmdTalkedRecently.delete(message.author.id);
             }, 60000);
+
+        }
+
+    }
+    
+    if (message.content.indexOf('!setPlaying') === 0) {
+
+        if (!allowGameNameChange) {
+            return;
+        } else {
+            
+            gameName = message.content.slice(1);
+
+            client.user.setPresence({
+                game: {
+                  name: gameName,
+                    type: 0
+                  }
+            })
+              .then(console.log)
+              .catch(console.error);
+            
+            message.channel.send("Setting Game Name to " + gameName);
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+
+            allowGameNameChange = false;
+            setTimeout(() => {
+              // Allows for the Game Name to be Set After 5 Minutes
+              allowGameNameChange = true;
+            }, 300000);
 
         }
 
