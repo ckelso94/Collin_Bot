@@ -403,7 +403,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             console.log('randomNum: ' + randomNum);
             
             if (randomNum === 1) {
-                generalChannel.send("Hey, Eeyore is here!", {files: ["./assets/images/eeyore.png"]});
+                generalChannel.send("Hey, Eeyore (Kelso) is here!", {files: ["./assets/images/eeyore.png"]});
             }
 
         } else if(newUserChannel === undefined){
