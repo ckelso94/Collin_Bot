@@ -73,6 +73,7 @@ client.on('message', async message => {
         TalkedRecently.add(message.author.id + "_black");
         setTimeout(() => {
             TalkedRecently.delete(message.author.id + "_black");
+            console.log(TalkedRecently);
         }, 60000);
 
     }
