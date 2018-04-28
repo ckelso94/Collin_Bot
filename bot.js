@@ -162,7 +162,7 @@ client.on('message', async message => {
 
     }
     
-    if (message.content.indexOf('!setPlaying') === 0) {
+    if (message.content.indexOf('!setGame') === 0) {
 
         if (!allowGameNameChange) {
             return;
