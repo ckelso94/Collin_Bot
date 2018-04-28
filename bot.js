@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+const TalkedRecently = new Set();
+
 const blackTalkedRecently = new Set();
 const leagueTalkedRecently = new Set();
 const fortniteTalkedRecently = new Set();
@@ -168,7 +170,7 @@ client.on('message', async message => {
             return;
         } else {
             
-            gameName = message.content.slice(1);
+            gameName = message.content.slice(9);
 
             client.user.setPresence({
                 game: {
@@ -179,7 +181,7 @@ client.on('message', async message => {
               .then(console.log)
               .catch(console.error);
             
-            message.channel.send("Setting Game Name to " + gameName);
+            message.channel.send("Setting Game Name to " + gameName.);
             
             message.delete()
               .then(msg => console.log(`Deleted message from ${msg.author.username}`))
