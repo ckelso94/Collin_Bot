@@ -75,9 +75,9 @@ client.on('message', async message => {
             message.channel.send({files: ["./assets/images/fortnite_sucks.jpg"]});
         }
 
-        TalkedRecently.add(message.author.id + "_fortnite"));
+        TalkedRecently.add(message.author.id + "_fortnite");
         setTimeout(() => {
-            TalkedRecently.delete(message.author.id + "_fortnite"));
+            TalkedRecently.delete(message.author.id + "_fortnite");
         }, 60000);
 
     }
