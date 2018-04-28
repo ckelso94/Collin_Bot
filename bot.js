@@ -181,7 +181,7 @@ client.on('message', async message => {
               .then(console.log)
               .catch(console.error);
             
-            message.channel.send("Setting Game Name to " + gameName.);
+            message.channel.send("Setting Game Name to " + gameName);
             
             message.delete()
               .then(msg => console.log(`Deleted message from ${msg.author.username}`))
