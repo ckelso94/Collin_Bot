@@ -3,17 +3,6 @@ const client = new Discord.Client();
 
 const TalkedRecently = new Set();
 
-const blackTalkedRecently = new Set();
-const leagueTalkedRecently = new Set();
-const fortniteTalkedRecently = new Set();
-const kirkCmdTalkedRecently = new Set();
-const ziegCmdTalkedRecently = new Set();
-const windowLickerCmdTalkedRecently = new Set();
-const helpCmdTalkedRecently = new Set();
-const mexicanCmdTalkedRecently = new Set();
-const lagCmdTalkedRecently = new Set();
-const hornCmdTalkedRecently = new Set();
-
 var gameName;
 var allowGameNameChange = true;
 
@@ -80,22 +69,22 @@ client.on('message', async message => {
     
     if (message.content.toLowerCase().includes('fortnite')) {
 
-        if (fortniteTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_fortnite")) {
             return;
         } else {
             message.channel.send({files: ["./assets/images/fortnite_sucks.jpg"]});
         }
 
-        fortniteTalkedRecently.add(message.author.id);
+        TalkedRecently.add(message.author.id + "_fortnite"));
         setTimeout(() => {
-            fortniteTalkedRecently.delete(message.author.id);
+            TalkedRecently.delete(message.author.id + "_fortnite"));
         }, 60000);
 
     }
 
     if (isReady && (message.content.indexOf('!kirk') === 0)) {
 
-        if (kirkCmdTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_kirk")) {
             return;
         } else {
 
@@ -119,10 +108,10 @@ client.on('message', async message => {
 
             isReady = true;
 
-            kirkCmdTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_kirk");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              kirkCmdTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_kirk");
             }, 60000);
 
         }
@@ -131,7 +120,7 @@ client.on('message', async message => {
     
     if (isReady && (message.content.indexOf('!licker') === 0)) {
 
-        if (windowLickerCmdTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_licker")) {
             return;
         } else {
 
@@ -155,10 +144,10 @@ client.on('message', async message => {
 
             isReady = true;
 
-            windowLickerCmdTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_licker");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              windowLickerCmdTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_licker");
             }, 60000);
 
         }
@@ -200,7 +189,7 @@ client.on('message', async message => {
     
     if (isReady && (message.content.indexOf('!lag') === 0)) {
 
-        if (lagCmdTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_lag")) {
             return;
         } else {
 
@@ -224,10 +213,10 @@ client.on('message', async message => {
 
             isReady = true;
 
-            lagCmdTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_lag");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              lagCmdTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_lag");
             }, 60000);
 
         }
@@ -236,7 +225,7 @@ client.on('message', async message => {
     
     if (isReady && (message.content.indexOf('!horn') === 0)) {
 
-        if (hornCmdTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_horn")) {
             return;
         } else {
 
@@ -260,10 +249,10 @@ client.on('message', async message => {
 
             isReady = true;
 
-            hornCmdTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_horn");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              hornCmdTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_horn");
             }, 60000);
 
         }
@@ -272,7 +261,7 @@ client.on('message', async message => {
     
     if (isReady && (message.content.indexOf('!zieg') === 0)) {
 
-        if (ziegCmdTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_zieg")) {
             return;
         } else {
 
@@ -282,10 +271,10 @@ client.on('message', async message => {
               .then(msg => console.log(`Deleted message from ${msg.author.username}`))
               .catch(console.error);
 
-            ziegCmdTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_zieg");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              ziegCmdTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_zieg");
             }, 60000);
 
         }
@@ -294,7 +283,7 @@ client.on('message', async message => {
 
     if (isReady && (message.content.toLowerCase().includes('league'))) {
 
-        if (leagueTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_league")) {
             return;
         } else {
 
@@ -332,10 +321,10 @@ client.on('message', async message => {
 
             isReady = true;
 
-            leagueTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_league");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              leagueTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_league");
             }, 60000);
 
         }
@@ -344,7 +333,7 @@ client.on('message', async message => {
 
     if (isReady && (message.content.toLowerCase().includes('aram') || message.content.toLowerCase().includes('arams'))) {
 
-        if (leagueTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_aram")) {
             return;
         } else {
 
@@ -364,10 +353,10 @@ client.on('message', async message => {
 
             isReady = true;
 
-            leagueTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_aram");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              leagueTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_aram");
             }, 60000);
 
         }
@@ -380,16 +369,16 @@ client.on('message', async message => {
         || message.content.toLowerCase().includes('taco')
         || message.content.toLowerCase().includes('border'))) {
 
-        if (mexicanCmdTalkedRecently.has(message.author.id)) {
+        if (TalkedRecently.has(message.author.id + "_mexican")) {
             return;
         } else {
 
             message.channel.send({files: ["./assets/images/mexican.png"]});
 
-            mexicanCmdTalkedRecently.add(message.author.id);
+            TalkedRecently.add(message.author.id + "_mexican");
             setTimeout(() => {
               // Removes the user from the set after a minute
-              mexicanCmdTalkedRecently.delete(message.author.id);
+              TalkedRecently.delete(message.author.id + "_mexican");
             }, 60000);
 
         }
