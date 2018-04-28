@@ -22,7 +22,7 @@ client.on('ready', () => {
     console.log('I am ready!');
     client.user.setPresence({
         game: {
-          name: 'Queue Simulator',
+          name: 'Building Simulator',
             type: 0
           }
     })
