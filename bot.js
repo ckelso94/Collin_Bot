@@ -156,8 +156,19 @@ client.on('message', async message => {
     
     if (message.content.indexOf('!setGame') === 0) {
 
-        if (!allowNameChange) {
-            return;
+        if (!allowNameChange && !TalkedRecently.has(message.author.id + "_timeout")) {
+            
+            message.channel.send("Command is on a Timeout");
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+            
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              TalkedRecently.delete(message.author.id + "_timeout");
+            }, 60000);
+            
         } else {
             
             name = message.content.slice(9);
@@ -189,8 +200,19 @@ client.on('message', async message => {
     
     if (message.content.indexOf('!setListening') === 0) {
 
-        if (!allowNameChange) {
-            return;
+        if (!allowNameChange && !TalkedRecently.has(message.author.id + "_timeout")) {
+            
+            message.channel.send("Command is on a Timeout");
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+            
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              TalkedRecently.delete(message.author.id + "_timeout");
+            }, 60000);
+            
         } else {
             
             name = message.content.slice(13);
@@ -222,8 +244,19 @@ client.on('message', async message => {
     
     if (message.content.indexOf('!setWatching') === 0) {
 
-        if (!allowNameChange) {
-            return;
+        if (!allowNameChange && !TalkedRecently.has(message.author.id + "_timeout")) {
+            
+            message.channel.send("Command is on a Timeout");
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+            
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              TalkedRecently.delete(message.author.id + "_timeout");
+            }, 60000);
+            
         } else {
             
             name = message.content.slice(12);
