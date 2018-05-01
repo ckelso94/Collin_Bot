@@ -215,7 +215,7 @@ client.on('message', async message => {
             
         } else {
             
-            name = message.content.slice(13);
+            name = message.content.slice(14);
 
             client.user.setPresence({
                 game: {
@@ -259,7 +259,7 @@ client.on('message', async message => {
             
         } else {
             
-            name = message.content.slice(12);
+            name = message.content.slice(13);
 
             client.user.setPresence({
                 game: {
