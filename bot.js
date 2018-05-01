@@ -3,8 +3,8 @@ const client = new Discord.Client();
 
 const TalkedRecently = new Set();
 
-var gameName;
-var allowGameNameChange = true;
+var name;
+var allowNameChange = true;
 
 var isReady = true;
 
@@ -30,7 +30,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n!setGame Skin Flute\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
+                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
             } catch(err) {
                 return;   
             }
@@ -156,31 +156,97 @@ client.on('message', async message => {
     
     if (message.content.indexOf('!setGame') === 0) {
 
-        if (!allowGameNameChange) {
+        if (!allowNameChange) {
             return;
         } else {
             
-            gameName = message.content.slice(9);
+            name = message.content.slice(9);
 
             client.user.setPresence({
                 game: {
-                  name: gameName,
+                  name: name,
                     type: 0
                   }
             })
               .then(console.log)
               .catch(console.error);
             
-            message.channel.send("Setting Game Name to " + gameName);
+            message.channel.send("Setting Game to " + name);
             
             message.delete()
               .then(msg => console.log(`Deleted message from ${msg.author.username}`))
               .catch(console.error);
 
-            allowGameNameChange = false;
+            allowNameChange = false;
             setTimeout(() => {
               // Allows for the Game Name to be Set After 5 Minutes
-              allowGameNameChange = true;
+              allowNameChange = true;
+            }, 300000);
+
+        }
+
+    }
+    
+    if (message.content.indexOf('!setListening') === 0) {
+
+        if (!allowNameChange) {
+            return;
+        } else {
+            
+            name = message.content.slice(13);
+
+            client.user.setPresence({
+                game: {
+                  name: name,
+                    type: 2
+                  }
+            })
+              .then(console.log)
+              .catch(console.error);
+            
+            message.channel.send("Setting Listening to " + name);
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+
+            allowNameChange = false;
+            setTimeout(() => {
+              // Allows for the Game Name to be Set After 5 Minutes
+              allowNameChange = true;
+            }, 300000);
+
+        }
+
+    }
+    
+    if (message.content.indexOf('!setWatching') === 0) {
+
+        if (!allowNameChange) {
+            return;
+        } else {
+            
+            name = message.content.slice(12);
+
+            client.user.setPresence({
+                game: {
+                  name: name,
+                    type: 3
+                  }
+            })
+              .then(console.log)
+              .catch(console.error);
+            
+            message.channel.send("Setting Watching to " + name);
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+
+            allowNameChange = false;
+            setTimeout(() => {
+              // Allows for the Game Name to be Set After 5 Minutes
+              allowNameChange = true;
             }, 300000);
 
         }
