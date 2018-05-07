@@ -49,7 +49,7 @@ function triggerHelp(message) {
 }
 
 function triggerAudio(message, trigger) {
-  
+
   if (TalkedRecently.has(message.author.id + "_" + trigger)) {
       return;
   } else {
@@ -185,12 +185,12 @@ client.on('message', async message => {
     }
     if (message.content.indexOf('!setListening') === 0) {
 
-      statusUpdate(message, 0, 14);
+      statusUpdate(message, 2, 14);
 
     }
     if (message.content.indexOf('!setWatching') === 0) {
 
-      statusUpdate(message, 0, 13);
+      statusUpdate(message, 3, 13);
 
     }
 
