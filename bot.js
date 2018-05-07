@@ -219,7 +219,7 @@ client.on('message', async message => {
     }
     if (message.content.indexOf('!licker') === 0) {
 
-      triggerAudio(message, "windowLicker");
+      triggerAudio(message, "windowlicker");
 
     }
     if (message.content.indexOf('!magicResist') === 0) {
