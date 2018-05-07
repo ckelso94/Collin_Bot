@@ -23,7 +23,7 @@ function triggerHelp(message) {
       "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
       "Audio Triggers:\n!aram\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!sameGame\n!yooo\n\n" +
       "Image Triggers:\n!prime\n!zieg\n\n" +
-      "Keywords: (black, fortnite, tank, mexican, prime)```"
+      "Keywords: (black, fortnite, tank, mexican)```"
 
     
     try {
