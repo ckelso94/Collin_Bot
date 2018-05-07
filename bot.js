@@ -1,524 +1,282 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.client();
 
 const TalkedRecently = new Set();
 
-var name;
-var allowNameChange = true;
-
+var allowStatusUpdate = true;
 var isReady = true;
 
 function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
 }
 
+function triggerHelp() {
+
+  if (TalkedRecently.has(message.author.id + "_help")) {
+    return;
+  } else {
+
+    isReady = false;
+    var voiceChannel = message.member.voiceChannel;
+
+    var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n\n" +
+      "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
+      "Audio Triggers:\n!aram\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!sameGame\n!yooo\n\n" +
+      "Image Triggers:\n!prime\n!zieg\n\n" +
+      "Keywords: (black, fortnite, tank, mexican, prime)```"
+
+    
+    try {
+      message.channel.send(helpResponse);
+    } catch(err) {
+      return;   
+    }
+    
+    message.delete()
+      .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+      .catch(console.error);
+
+    isReady = true;
+
+    TalkedRecently.add(message.author.id + "_help");
+    setTimeout(() => {
+      // Removes the user from the set after a minute
+      TalkedRecently.delete(message.author.id + "_help");
+    }, 60000);
+
+  }
+
+}
+
+function triggerAudio(message, trigger) {
+    
+  if (TalkedRecently.has(message.author.id + "_" + trigger)) {
+      return;
+  } else {
+
+      isReady = false;
+      var voiceChannel = message.member.voiceChannel;
+      
+      try {
+           voiceChannel.join().then(connection => {
+              const dispatcher = connection.playFile("./assets/audio/" + trigger + ".mp3");
+              dispatcher.on("end", end => {
+                  voiceChannel.leave();
+              });
+          }); 
+      } catch(err) {
+          return;   
+      }
+      
+      message.delete()
+        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .catch(console.error);
+
+      isReady = true;
+
+      TalkedRecently.add(message.author.id + "_" + trigger);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        TalkedRecently.delete(message.author.id + "_" + trigger);
+      }, 60000);
+
+  }
+
+}
+
+function triggerImage(message, trigger, delete) {
+
+  if (TalkedRecently.has(message.author.id + "_" + trigger)) {
+      return;
+  } else {
+
+      message.channel.send({files: ["./assets/images/" + trigger + ".png"]});
+      
+      if(delete) {
+
+        message.delete()
+          .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+          .catch(console.error);
+
+      }
+
+      TalkedRecently.add(message.author.id + "_" + trigger);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        TalkedRecently.delete(message.author.id + "_" + trigger);
+      }, 60000);
+
+  }
+
+}
+
+function statusUpdate(message, statusType, slicePoint) {
+
+  if (!allowStatusUpdate && !TalkedRecently.has(message.author.id + "_timeout")) {
+
+      message.channel.send("Command is on a Timeout");
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+            
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              TalkedRecently.delete(message.author.id + "_timeout");
+            }, 60000);
+
+  } else {
+
+    var statusValue = message.content.slice(slicePoint);
+
+      client.user.setPresence({
+          game: {
+              name: statusValue,
+              type: statusType
+            }
+      })
+        .then(console.log)
+        .catch(console.error);
+      
+      message.channel.send("Presence Set");
+      
+      message.delete()
+        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .catch(console.error);
+
+      allowStatusUpdate = false;
+
+      setTimeout(() => {
+        // Allows for the Game Name to be Set After 5 Minutes
+        allowStatusUpdate = true;
+      }, 300000);
+
+  }
+
+}
+
+
 client.on('ready', () => {
     console.log('I am ready!');
 });
 
 client.on('message', async message => {
-    
-    if(message.author.bot) return;
-    
-    if (isReady && (message.content.indexOf('!help') === 0)) {
 
-        if (TalkedRecently.has(message.author.id + "_help")) {
-            return;
-        } else {
+  if(message.author.bot) return;
 
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
-            
-            try {
-                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n!yooo\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
-            } catch(err) {
-                return;   
-            }
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
+  if(isReady) {
 
-            isReady = true;
+    /********************************************/
+    /*              HELP TRIGGERS               */
+    /********************************************/
+    if (message.content.indexOf('!help') === 0) {
 
-            TalkedRecently.add(message.author.id + "_help");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_help");
-            }, 60000);
-
-        }
-
-    }
-        
-    if (message.content.toLowerCase().includes('black')) {
-
-        if (TalkedRecently.has(message.author.id + "_black")) {
-            return;
-        } else {
-            message.channel.send({files: ["./assets/images/cmonbruh.png"]});
-        }
-
-        TalkedRecently.add(message.author.id + "_black");
-        console.log(TalkedRecently);
-        setTimeout(() => {
-            TalkedRecently.delete(message.author.id + "_black");
-        }, 60000);
-
-    }
-    
-    if (message.content.toLowerCase().includes('fortnite')) {
-
-        if (TalkedRecently.has(message.author.id + "_fortnite")) {
-            return;
-        } else {
-            message.channel.send({files: ["./assets/images/fortnite_sucks.jpg"]});
-        }
-
-        TalkedRecently.add(message.author.id + "_fortnite");
-        setTimeout(() => {
-            TalkedRecently.delete(message.author.id + "_fortnite");
-        }, 60000);
+      triggerHelp();
 
     }
 
-    if (isReady && (message.content.indexOf('!kirk') === 0)) {
-
-        if (TalkedRecently.has(message.author.id + "_kirk")) {
-            return;
-        } else {
-
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
-            
-            try {
-                 voiceChannel.join().then(connection => {
-                    const dispatcher = connection.playFile("./assets/audio/kirkWilhelm.mp3");
-                    dispatcher.on("end", end => {
-                        voiceChannel.leave();
-                    });
-                }); 
-            } catch(err) {
-                return;   
-            }
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            isReady = true;
-
-            TalkedRecently.add(message.author.id + "_kirk");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_kirk");
-            }, 60000);
-
-        }
-
-    }
-    
-    if (isReady && (message.content.indexOf('!yooo') === 0)) {
-
-        if (TalkedRecently.has(message.author.id + "_yooo")) {
-            return;
-        } else {
-
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
-            
-            try {
-                 voiceChannel.join().then(connection => {
-                    const dispatcher = connection.playFile("./assets/audio/yooo.mp3");
-                    dispatcher.on("end", end => {
-                        voiceChannel.leave();
-                    });
-                }); 
-            } catch(err) {
-                return;   
-            }
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            isReady = true;
-
-            TalkedRecently.add(message.author.id + "_yooo");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_yooo");
-            }, 60000);
-
-        }
-
-    }
-    
-    if (isReady && (message.content.indexOf('!licker') === 0)) {
-
-        if (TalkedRecently.has(message.author.id + "_licker")) {
-            return;
-        } else {
-
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
-            
-            try {
-                 voiceChannel.join().then(connection => {
-                    const dispatcher = connection.playFile("./assets/audio/windowlicker.mp3");
-                    dispatcher.on("end", end => {
-                        voiceChannel.leave();
-                    });
-                }); 
-            } catch(err) {
-                return;   
-            }
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            isReady = true;
-
-            TalkedRecently.add(message.author.id + "_licker");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_licker");
-            }, 60000);
-
-        }
-
-    }
-    
+    /********************************************/
+    /*             STATUS TRIGGERS              */
+    /********************************************/
     if (message.content.indexOf('!setGame') === 0) {
 
-        if (!allowNameChange && !TalkedRecently.has(message.author.id + "_timeout")) {
-            
-            message.channel.send("Command is on a Timeout");
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-            
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_timeout");
-            }, 60000);
-            
-        } else {
-            
-            name = message.content.slice(9);
-
-            client.user.setPresence({
-                game: {
-                  name: name,
-                    type: 0
-                  }
-            })
-              .then(console.log)
-              .catch(console.error);
-            
-            message.channel.send("Setting Game to " + name);
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            allowNameChange = false;
-            setTimeout(() => {
-              // Allows for the Game Name to be Set After 5 Minutes
-              allowNameChange = true;
-            }, 300000);
-
-        }
+      statusUpdate(message, 0, 9);
 
     }
-    
     if (message.content.indexOf('!setListening') === 0) {
 
-        if (!allowNameChange && !TalkedRecently.has(message.author.id + "_timeout")) {
-            
-            message.channel.send("Command is on a Timeout");
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-            
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_timeout");
-            }, 60000);
-            
-        } else {
-            
-            name = message.content.slice(14);
-
-            client.user.setPresence({
-                game: {
-                  name: name,
-                    type: 2
-                  }
-            })
-              .then(console.log)
-              .catch(console.error);
-            
-            message.channel.send("Setting Listening to " + name);
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            allowNameChange = false;
-            setTimeout(() => {
-              // Allows for the Game Name to be Set After 5 Minutes
-              allowNameChange = true;
-            }, 300000);
-
-        }
+      statusUpdate(message, 0, 14);
 
     }
-    
     if (message.content.indexOf('!setWatching') === 0) {
 
-        if (!allowNameChange && !TalkedRecently.has(message.author.id + "_timeout")) {
-            
-            message.channel.send("Command is on a Timeout");
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-            
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_timeout");
-            }, 60000);
-            
-        } else {
-            
-            name = message.content.slice(13);
-
-            client.user.setPresence({
-                game: {
-                  name: name,
-                    type: 3
-                  }
-            })
-              .then(console.log)
-              .catch(console.error);
-            
-            message.channel.send("Setting Watching to " + name);
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            allowNameChange = false;
-            setTimeout(() => {
-              // Allows for the Game Name to be Set After 5 Minutes
-              allowNameChange = true;
-            }, 300000);
-
-        }
-
-    }
-    
-    if (isReady && (message.content.indexOf('!lag') === 0)) {
-
-        if (TalkedRecently.has(message.author.id + "_lag")) {
-            return;
-        } else {
-
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
-            
-            try {
-                 voiceChannel.join().then(connection => {
-                    const dispatcher = connection.playFile("./assets/audio/lag.mp3");
-                    dispatcher.on("end", end => {
-                        voiceChannel.leave();
-                    });
-                }); 
-            } catch(err) {
-                return;   
-            }
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            isReady = true;
-
-            TalkedRecently.add(message.author.id + "_lag");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_lag");
-            }, 60000);
-
-        }
-
-    }
-    
-    if (isReady && (message.content.indexOf('!horn') === 0)) {
-
-        if (TalkedRecently.has(message.author.id + "_horn")) {
-            return;
-        } else {
-
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
-            
-            try {
-                 voiceChannel.join().then(connection => {
-                    const dispatcher = connection.playFile("./assets/audio/horn.mp3");
-                    dispatcher.on("end", end => {
-                        voiceChannel.leave();
-                    });
-                }); 
-            } catch(err) {
-                return;   
-            }
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            isReady = true;
-
-            TalkedRecently.add(message.author.id + "_horn");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_horn");
-            }, 60000);
-
-        }
-
-    }
-    
-    if (isReady && (message.content.indexOf('!zieg') === 0)) {
-
-        if (TalkedRecently.has(message.author.id + "_zieg")) {
-            return;
-        } else {
-
-            message.channel.send({files: ["./assets/images/goat_fucker.png"]});
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-
-            TalkedRecently.add(message.author.id + "_zieg");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_zieg");
-            }, 60000);
-
-        }
+      statusUpdate(message, 0, 13);
 
     }
 
-    if (isReady && (message.content.toLowerCase().includes('league'))) {
+    /********************************************/
+    /*              AUDIO TRIGGERS              */
+    /********************************************/
+    if (message.content.indexOf('!aram') === 0) {
 
-        if (TalkedRecently.has(message.author.id + "_league")) {
-            return;
-        } else {
+      triggerAudio(message, "goodOleArams");
 
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
+    }
+    if (message.content.indexOf('!horn') === 0) {
 
-            randomNum = randomWholeNum(2);
-            switch(randomNum) {
-                case 1:
-                    clip = "./assets/audio/sameGame.mp3"
-                    break;
-                
-                case 2:
-                    clip = "./assets/audio/magicResist.mp3"
-                    break;
-                
-              default:
-                    clip = "picture";
-            };
-            
-            if (clip == "picture") {
-                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/images/league_of_tanks.png"]});   
-            } else {
-                try {
-                     voiceChannel.join().then(connection => {
-                        const dispatcher = connection.playFile(clip);
-                        dispatcher.on("end", end => {
-                            voiceChannel.leave();
-                        });
-                    }); 
-                } catch(err) {
-                    message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/images/league_of_tanks.png"]});   
-                }
-            }
+      triggerAudio(message, "horn");
 
-            isReady = true;
+    }
+    if (message.content.indexOf('!kirk') === 0) {
 
-            TalkedRecently.add(message.author.id + "_league");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_league");
-            }, 60000);
+      triggerAudio(message, "kirkWilhelm");
 
-        }
+    }
+    if (message.content.indexOf('!lag') === 0) {
+
+      triggerAudio(message, "lag");
+
+    }
+    if (message.content.indexOf('!licker') === 0) {
+
+      triggerAudio(message, "windowLicker");
+
+    }
+    if (message.content.indexOf('!magicResist') === 0) {
+
+      triggerAudio(message, "magicResist");
+
+    }
+    if (message.content.indexOf('!sameGame') === 0) {
+
+      triggerAudio(message, "sameGame");
+
+    }
+    if (message.content.indexOf('!yooo') === 0) {
+
+      triggerAudio(message, "yooo");
 
     }
 
-    if (isReady && (message.content.toLowerCase().includes('aram') || message.content.toLowerCase().includes('arams'))) {
+    /********************************************/
+    /*              IMAGE TRIGGERS              */
+    /********************************************/
+    if (message.content.indexOf('!prime') === 0) {
 
-        if (TalkedRecently.has(message.author.id + "_aram")) {
-            return;
-        } else {
-
-            isReady = false;
-            var voiceChannel = message.member.voiceChannel;
-            
-            try {
-                 voiceChannel.join().then(connection => {
-                    const dispatcher = connection.playFile("./assets/audio/goodOleArams.mp3");
-                    dispatcher.on("end", end => {
-                        voiceChannel.leave();
-                    });
-                }); 
-            } catch(err) {
-                message.channel.send("League of Tanks, Game Never Changes!", {files: ["./assets/images/league_of_tanks.png"]});   
-            }
-
-            isReady = true;
-
-            TalkedRecently.add(message.author.id + "_aram");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_aram");
-            }, 60000);
-
-        }
+      triggerImage(message, "prime", true);
 
     }
-    
-    if (isReady && (message.content.toLowerCase().includes('burrito')
-        || message.content.toLowerCase().includes('mexican')
-        || message.content.toLowerCase().includes('construction')
-        || message.content.toLowerCase().includes('taco')
-        || message.content.toLowerCase().includes('border'))) {
+    if (message.content.indexOf('!zieg') === 0) {
 
-        if (TalkedRecently.has(message.author.id + "_mexican")) {
-            return;
-        } else {
-
-            message.channel.send({files: ["./assets/images/mexican.png"]});
-
-            TalkedRecently.add(message.author.id + "_mexican");
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_mexican");
-            }, 60000);
-
-        }
+      triggerImage(message, "goat_fucker", true);
 
     }
+
+    /********************************************/
+    /*             KEYWORD TRIGGERS             */
+    /********************************************/
+    if (message.content.toLowerCase().includes('black')) {
+
+      triggerImage(message, "cmonbruh", false);
+
+    }
+    if (message.content.toLowerCase().includes('fortnite')) {
+
+      triggerImage(message, "fortnite_sucks", false);
+
+    }
+    if (message.content.toLowerCase().includes('tank')) {
+
+      triggerImage(message, "league_of_tanks", false);
+
+    }
+    if (message.content.toLowerCase().includes('mexican')) {
+
+      triggerImage(message, "mexican", false);
+
+    }
+
+  }
 
 });
 
