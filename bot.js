@@ -10,7 +10,7 @@ function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
 }
 
-function triggerHelp() {
+function triggerHelp(message) {
 
   if (TalkedRecently.has(message.author.id + "_help")) {
     return;
@@ -171,7 +171,7 @@ client.on('message', async message => {
     /********************************************/
     if (message.content.indexOf('!help') === 0) {
 
-      triggerHelp();
+      triggerHelp(message);
 
     }
 
