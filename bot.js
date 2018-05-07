@@ -30,7 +30,7 @@ client.on('message', async message => {
             var voiceChannel = message.member.voiceChannel;
             
             try {
-                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
+                 message.channel.send("```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n!help\n!kirk\n!zieg\n!licker\n!lag\n!horn\n!yooo\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\nKeywords:\nblack\nfortnite\naram\narams\nleague\nburrito\nmexican\nconstruction\ntaco\nborder```");
             } catch(err) {
                 return;   
             }
@@ -112,6 +112,42 @@ client.on('message', async message => {
             setTimeout(() => {
               // Removes the user from the set after a minute
               TalkedRecently.delete(message.author.id + "_kirk");
+            }, 60000);
+
+        }
+
+    }
+    
+    if (isReady && (message.content.indexOf('!yooo') === 0)) {
+
+        if (TalkedRecently.has(message.author.id + "_yooo")) {
+            return;
+        } else {
+
+            isReady = false;
+            var voiceChannel = message.member.voiceChannel;
+            
+            try {
+                 voiceChannel.join().then(connection => {
+                    const dispatcher = connection.playFile("./assets/audio/yooo.mp3");
+                    dispatcher.on("end", end => {
+                        voiceChannel.leave();
+                    });
+                }); 
+            } catch(err) {
+                return;   
+            }
+            
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+
+            isReady = true;
+
+            TalkedRecently.add(message.author.id + "_yooo");
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              TalkedRecently.delete(message.author.id + "_yooo");
             }, 60000);
 
         }
