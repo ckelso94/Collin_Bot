@@ -49,14 +49,14 @@ function triggerHelp(message) {
 }
 
 function triggerAudio(message, trigger) {
-  console.log("Tirgger: " + trigger);
+  
   if (TalkedRecently.has(message.author.id + "_" + trigger)) {
       return;
   } else {
 
       isReady = false;
       var voiceChannel = message.member.voiceChannel;
-      
+
       try {
            voiceChannel.join().then(connection => {
               const dispatcher = connection.playFile("./assets/audio/" + trigger + ".mp3");
@@ -165,7 +165,7 @@ client.on('message', async message => {
   if(message.author.bot) return;
 
   if(isReady) {
-console.log("HERE");
+
     /********************************************/
     /*              HELP TRIGGERS               */
     /********************************************/
