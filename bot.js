@@ -49,7 +49,7 @@ function triggerHelp(message) {
 }
 
 function triggerAudio(message, trigger) {
-    
+  console.log("Tirgger: " + trigger);
   if (TalkedRecently.has(message.author.id + "_" + trigger)) {
       return;
   } else {
