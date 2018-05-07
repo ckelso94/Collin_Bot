@@ -51,34 +51,34 @@ function triggerHelp(message) {
 function triggerAudio(message, trigger) {
 
   if (TalkedRecently.has(message.author.id + "_" + trigger)) {
-      return;
+    return;
   } else {
 
-      isReady = false;
-      var voiceChannel = message.member.voiceChannel;
+    isReady = false;
+    var voiceChannel = message.member.voiceChannel;
 
-      try {
-           voiceChannel.join().then(connection => {
-              const dispatcher = connection.playFile("./assets/audio/" + trigger + ".mp3");
-              dispatcher.on("end", end => {
-                  voiceChannel.leave();
-              });
-          }); 
-      } catch(err) {
-          return;   
-      }
-      
-      message.delete()
-        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-        .catch(console.error);
+    try {
+      voiceChannel.join().then(connection => {
+        const dispatcher = connection.playFile("./assets/audio/" + trigger + ".mp3");
+        dispatcher.on("end", end => {
+            voiceChannel.leave();
+        });
+      }); 
+    } catch(err) {
+      return;   
+    }
+    
+    message.delete()
+      .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+      .catch(console.error);
 
-      isReady = true;
+    isReady = true;
 
-      TalkedRecently.add(message.author.id + "_" + trigger);
-      setTimeout(() => {
-        // Removes the user from the set after a minute
-        TalkedRecently.delete(message.author.id + "_" + trigger);
-      }, 60000);
+    TalkedRecently.add(message.author.id + "_" + trigger);
+    setTimeout(() => {
+      // Removes the user from the set after a minute
+      TalkedRecently.delete(message.author.id + "_" + trigger);
+    }, 60000);
 
   }
 
@@ -87,24 +87,24 @@ function triggerAudio(message, trigger) {
 function triggerImage(message, trigger, shouldDelete) {
 
   if (TalkedRecently.has(message.author.id + "_" + trigger)) {
-      return;
+    return;
   } else {
 
-      message.channel.send({files: ["./assets/images/" + trigger + ".png"]});
-      
-      if(shouldDelete) {
+    message.channel.send({files: ["./assets/images/" + trigger + ".png"]});
+    
+    if(shouldDelete) {
 
-        message.delete()
-          .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-          .catch(console.error);
+      message.delete()
+        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .catch(console.error);
 
-      }
+    }
 
-      TalkedRecently.add(message.author.id + "_" + trigger);
-      setTimeout(() => {
-        // Removes the user from the set after a minute
-        TalkedRecently.delete(message.author.id + "_" + trigger);
-      }, 60000);
+    TalkedRecently.add(message.author.id + "_" + trigger);
+    setTimeout(() => {
+      // Removes the user from the set after a minute
+      TalkedRecently.delete(message.author.id + "_" + trigger);
+    }, 60000);
 
   }
 
@@ -114,26 +114,27 @@ function statusUpdate(message, statusType, slicePoint) {
 
   if (!allowStatusUpdate && !TalkedRecently.has(message.author.id + "_timeout")) {
 
-      message.channel.send("Command is on a Timeout");
-            
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-            
-            setTimeout(() => {
-              // Removes the user from the set after a minute
-              TalkedRecently.delete(message.author.id + "_timeout");
-            }, 60000);
+    message.channel.send("Command is on a Timeout");
+          
+    message.delete()
+      .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+      .catch(console.error);
+    
+    TalkedRecently.add(message.author.id + "_timeout");
+    setTimeout(() => {
+      // Removes the user from the set after a minute
+      TalkedRecently.delete(message.author.id + "_timeout");
+    }, 60000);
 
   } else {
 
     var statusValue = message.content.slice(slicePoint);
 
       client.user.setPresence({
-          game: {
-              name: statusValue,
-              type: statusType
-            }
+        game: {
+            name: statusValue,
+            type: statusType
+          }
       })
         .then(console.log)
         .catch(console.error);
