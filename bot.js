@@ -84,7 +84,7 @@ function triggerAudio(message, trigger) {
 
 }
 
-function triggerImage(message, trigger, delete) {
+function triggerImage(message, trigger, shouldDelete) {
 
   if (TalkedRecently.has(message.author.id + "_" + trigger)) {
       return;
@@ -92,7 +92,7 @@ function triggerImage(message, trigger, delete) {
 
       message.channel.send({files: ["./assets/images/" + trigger + ".png"]});
       
-      if(delete) {
+      if(shouldDelete) {
 
         message.delete()
           .then(msg => console.log(`Deleted message from ${msg.author.username}`))
