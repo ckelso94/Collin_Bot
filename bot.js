@@ -19,7 +19,7 @@ function triggerHelp(message) {
     isReady = false;
     var voiceChannel = message.member.voiceChannel;
 
-    var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit, Here Are the Available Commands:\n\n" +
+    var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
       "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
       "Audio Triggers:\n!aram\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!sameGame\n!yooo\n\n" +
       "Image Triggers:\n!prime\n!zieg\n\n" +
@@ -165,7 +165,7 @@ client.on('message', async message => {
   if(message.author.bot) return;
 
   if(isReady) {
-
+console.log("HERE");
     /********************************************/
     /*              HELP TRIGGERS               */
     /********************************************/
