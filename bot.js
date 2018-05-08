@@ -10,41 +10,60 @@ function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
 }
 
-function triggerHelp(message) {
+function triggerMessage(message, trigger, msgResponse, shouldDelete) {
 
-  if (TalkedRecently.has(message.author.id + "_help")) {
+  if (TalkedRecently.has(message.author.id + "_" + trigger)) {
     return;
   } else {
 
     isReady = false;
-    var voiceChannel = message.member.voiceChannel;
-
-    var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
-      "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
-      "Audio Triggers:\n!aram\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!sameGame\n!yooo\n\n" +
-      "Image Triggers:\n!prime\n!zieg\n\n" +
-      "Keywords: (black, fortnite, tank, mexican)```"
-
-    
+      
     try {
-      message.channel.send(helpResponse);
+      message.channel.send(msgResponse);
     } catch(err) {
       return;   
     }
     
-    message.delete()
-      .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-      .catch(console.error);
+    if(shouldDelete) {
+
+      message.delete()
+        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .catch(console.error);
+
+    }
 
     isReady = true;
 
-    TalkedRecently.add(message.author.id + "_help");
+    TalkedRecently.add(message.author.id + "_" + trigger);
     setTimeout(() => {
       // Removes the user from the set after a minute
-      TalkedRecently.delete(message.author.id + "_help");
+      TalkedRecently.delete(message.author.id + "_" + trigger);
     }, 60000);
 
   }
+    
+  if (TalkedRecently.has(message.author.id + "_" + trigger)) {
+    return;
+  } else {
+
+    message.channel.send({files: ["./assets/images/" + trigger + ".png"]});
+    
+    if(shouldDelete) {
+
+      message.delete()
+        .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+        .catch(console.error);
+
+    }
+
+    TalkedRecently.add(message.author.id + "_" + trigger);
+    setTimeout(() => {
+      // Removes the user from the set after a minute
+      TalkedRecently.delete(message.author.id + "_" + trigger);
+    }, 60000);
+
+  }
+
 
 }
 
@@ -168,11 +187,22 @@ client.on('message', async message => {
   if(isReady) {
 
     /********************************************/
-    /*              HELP TRIGGERS               */
+    /*            MESSAGE TRIGGERS              */
     /********************************************/
     if (message.content.indexOf('!help') === 0) {
 
-      triggerHelp(message);
+      var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
+      "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
+      "Audio Triggers:\n!aram\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!sameGame\n!yooo\n\n" +
+      "Image Triggers:\n!prime\n!zieg\n\n" +
+      "Keywords: (black, fortnite, tank, mexican)```"
+      triggerMessage(message, "help", helpResponse, true);
+
+    }
+      //93107357470433280
+    if (message.author.id == "148630426548699136" && message.content.toLowerCase().includes('overwatch')) {
+
+      triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
 
     }
 
