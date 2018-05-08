@@ -222,7 +222,7 @@ client.on('message', async message => {
 
     }
     
-    if (message.content.toLowerCase().includes('overwatch') && (message.author.id == "93107357470433280" || condtitionOverride)) {
+    if (message.content.toLowerCase().includes('overwatch') && (message.author.id == "93107357470433280" || conditionOverride)) {
 
       triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
 
