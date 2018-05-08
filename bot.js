@@ -3,6 +3,7 @@ const client = new Discord.Client();
 
 const TalkedRecently = new Set();
 
+var conditionOverride = false;
 var allowStatusUpdate = true;
 var isReady = true;
 
@@ -185,6 +186,27 @@ client.on('message', async message => {
   if(message.author.bot) return;
 
   if(isReady) {
+      
+    if (message.content.indexOf('!override') === 0 && message.author.id == "148630426548699136") {
+        
+        var overrideValue = message.content.slice(10);
+        if (overrideValue == "true") {
+            conditionOverride = true;
+            message.channel.send("Condition Override Set: " + conditionOverride);
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+            
+        } else {
+            conditionOverride = false;
+            console.log("Condition Override Set: " + conditionOverride);
+            message.channel.send("Condition Override Set: false");
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+        }
+        
+    }
 
     /********************************************/
     /*            MESSAGE TRIGGERS              */
@@ -199,8 +221,8 @@ client.on('message', async message => {
       triggerMessage(message, "help", helpResponse, true);
 
     }
-      //93107357470433280
-    if (message.author.id == "148630426548699136" && message.content.toLowerCase().includes('overwatch')) {
+    
+    if (message.content.toLowerCase().includes('overwatch') && (message.author.id == "93107357470433280" || condtitionOverride)) {
 
       triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
 
