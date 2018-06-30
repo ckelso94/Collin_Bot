@@ -235,7 +235,7 @@ client.on('message', async message => {
         
         while (spamUser) {
             try {
-              message.channel.send(<@userId>);
+              message.channel.send(@userId);
             } catch(err) {
               return;   
             }
