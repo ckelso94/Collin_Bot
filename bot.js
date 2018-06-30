@@ -233,8 +233,11 @@ client.on('message', async message => {
     if (message.content.indexOf('!spam') === 0) {
 
       var userId = message.content.slice(6);
-      console.log(userId);
-      message.channel.send("<@" + userId + ">");
+      message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+      message.channel.send("<@" + userId + ">")
+              .then(msg => console.log("TEST"));
 
     }
 
