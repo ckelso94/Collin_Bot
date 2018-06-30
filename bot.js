@@ -6,6 +6,7 @@ const TalkedRecently = new Set();
 var conditionOverride = false;
 var allowStatusUpdate = true;
 var isReady = true;
+var spamUser = true;
 
 function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
@@ -226,6 +227,26 @@ client.on('message', async message => {
 
       triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
 
+    }
+      
+    if (message.content.indexOf('!spam') === 0 && message.author.id == "93107357470433280") {
+        
+        var userId = message.content.slice(6);
+        
+        while (spamUser) {
+            try {
+              message.channel.send(<@userId>);
+            } catch(err) {
+              return;   
+            }
+        }
+        
+    }
+        
+    if (message.content.indexOf('!spamStop') === 0 && message.author.id == "93107357470433280") {
+
+        spamUser = false;
+        
     }
 
     /********************************************/
