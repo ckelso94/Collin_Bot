@@ -237,7 +237,10 @@ client.on('message', async message => {
               .then(msg => console.log(`Deleted message from ${msg.author.username}`))
               .catch(console.error);
       message.channel.send("<@" + userId + ">")
-              .then(msg => console.log("TEST"));
+              .then(msg => 
+                setTimeout(() => {
+                  msg.delete('');
+                }, 10000));
 
     }
 
