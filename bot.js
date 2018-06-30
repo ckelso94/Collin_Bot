@@ -234,6 +234,7 @@ client.on('message', async message => {
 
       var userId = message.content.slice(6);
       console.log(userId);
+      message.channel.send("<@" + userId + ">");
 
     }
 
