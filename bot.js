@@ -235,7 +235,10 @@ client.on('message', async message => {
         
         while (spamUser) {
             try {
-              message.channel.send("<@" + userId + ">");
+              message.channel.send("<@" + userId + ">")
+              .then(msg => {
+                msg.delete(10000)
+              });
             } catch(err) {
               return;   
             }
