@@ -246,7 +246,7 @@ client.on('message', async message => {
             setTimeout(() => {
               msg.delete('');
             }, 10000));
-        }, 2000);
+        }, 5000);
 
       }
 
