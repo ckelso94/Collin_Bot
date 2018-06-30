@@ -228,29 +228,37 @@ client.on('message', async message => {
       triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
 
     }
-      
-    if (message.content.indexOf('!spam') === 0 && message.author.id == "148630426548699136") {
-        
-        var userId = message.content.slice(6);
-        
-        while (spamUser) {
-            try {
-              message.channel.send("<@" + userId + ">")
-              .then(msg => {
-                msg.delete(10000)
-              });
-            } catch(err) {
-              return;   
-            }
-        }
-        
-    }
-        
-    if (message.content.indexOf('!spamStop') === 0 && message.author.id == "148630426548699136") {
+     
 
-        spamUser = false;
-        
+    if (message.content.indexOf('!spam') === 0) {
+
+      var userId = message.content.slice(6);
+      console.log(userId);
+
     }
+
+    // if (message.content.indexOf('!spam') === 0 && message.author.id == "148630426548699136") {
+        
+    //     var userId = message.content.slice(6);
+        
+    //     while (spamUser) {
+    //         try {
+    //           message.channel.send("<@" + userId + ">")
+    //           .then(msg => {
+    //             msg.delete(10000)
+    //           });
+    //         } catch(err) {
+    //           return;   
+    //         }
+    //     }
+        
+    // }
+        
+    // if (message.content.indexOf('!spamStop') === 0 && message.author.id == "148630426548699136") {
+
+    //     spamUser = false;
+        
+    // }
 
     /********************************************/
     /*             STATUS TRIGGERS              */
