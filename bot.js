@@ -6,7 +6,7 @@ const TalkedRecently = new Set();
 var conditionOverride = false;
 var allowStatusUpdate = true;
 var isReady = true;
-var spamUser = true;
+var shouldSpam = false;
 
 function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
@@ -236,11 +236,19 @@ client.on('message', async message => {
       message.delete()
               .then(msg => console.log(`Deleted message from ${msg.author.username}`))
               .catch(console.error);
-      message.channel.send("<@" + userId + ">")
-              .then(msg => 
-                setTimeout(() => {
-                  msg.delete('');
-                }, 10000));
+      shouldSpam = true;
+
+      while(shouldSpam) {
+
+        setTimeout(() => {
+          message.channel.send("<@" + userId + ">")
+          .then(msg => 
+            setTimeout(() => {
+              msg.delete('');
+            }, 10000));
+        }, 2000);
+
+      }
 
     }
 
@@ -261,11 +269,11 @@ client.on('message', async message => {
         
     // }
         
-    // if (message.content.indexOf('!spamStop') === 0 && message.author.id == "148630426548699136") {
+    if (message.content.indexOf('!spamStop') === 0 && message.author.id == "148630426548699136") {
 
-    //     spamUser = false;
+        shouldSpam = false;
         
-    // }
+    }
 
     /********************************************/
     /*             STATUS TRIGGERS              */
