@@ -229,7 +229,7 @@ client.on('message', async message => {
 
     }
       
-    if (message.content.indexOf('!spam') === 0 && message.author.id == "93107357470433280") {
+    if (message.content.indexOf('!spam') === 0 && message.author.id == "148630426548699136") {
         
         var userId = message.content.slice(7);
         
@@ -246,7 +246,7 @@ client.on('message', async message => {
         
     }
         
-    if (message.content.indexOf('!spamStop') === 0 && message.author.id == "93107357470433280") {
+    if (message.content.indexOf('!spamStop') === 0 && message.author.id == "148630426548699136") {
 
         spamUser = false;
         
