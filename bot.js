@@ -6,7 +6,6 @@ const TalkedRecently = new Set();
 var conditionOverride = false;
 var allowStatusUpdate = true;
 var isReady = true;
-var shouldSpam = false;
 
 function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
@@ -227,52 +226,6 @@ client.on('message', async message => {
 
       triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
 
-    }
-     
-
-    if (message.content.indexOf('!spam') === 0) {
-
-      var userId = message.content.slice(6);
-      message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-      shouldSpam = true;
-
-      while(shouldSpam) {
-
-        setTimeout(() => {
-          message.channel.send("<@" + userId + ">")
-          .then(msg => 
-            setTimeout(() => {
-              msg.delete('');
-            }, 10000));
-        }, 5000);
-
-      }
-
-    }
-
-    // if (message.content.indexOf('!spam') === 0 && message.author.id == "148630426548699136") {
-        
-    //     var userId = message.content.slice(6);
-        
-    //     while (spamUser) {
-    //         try {
-    //           message.channel.send("<@" + userId + ">")
-    //           .then(msg => {
-    //             msg.delete(10000)
-    //           });
-    //         } catch(err) {
-    //           return;   
-    //         }
-    //     }
-        
-    // }
-        
-    if (message.content.indexOf('!spamStop') === 0 && message.author.id == "148630426548699136") {
-
-        shouldSpam = false;
-        
     }
 
     /********************************************/
