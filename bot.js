@@ -231,7 +231,7 @@ client.on('message', async message => {
       
     if (message.content.indexOf('!spam') === 0 && message.author.id == "148630426548699136") {
         
-        var userId = message.content.slice(7);
+        var userId = message.content.slice(6);
         
         while (spamUser) {
             try {
