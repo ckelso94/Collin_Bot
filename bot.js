@@ -215,7 +215,7 @@ client.on('message', async message => {
 
       var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
       "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
-      "Audio Triggers:\n!aram\n!dumbassGame\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!sameGame\n!snap\nswallowWhat\n!tinsel\n!yooo\n!warus\n\n" +
+      "Audio Triggers:\n!aram\n!dumbassGame\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!sameGame\n!snap\n!tinsel\n!yooo\n!warus\n\n" +
       "Image Triggers:\n!prime\n!zieg\n\n" +
       "Keywords: (black, fortnite, tank, mexican)```"
       triggerMessage(message, "help", helpResponse, true);
@@ -293,11 +293,6 @@ client.on('message', async message => {
     if (message.content.indexOf('!snap') === 0) {
 
       triggerAudio(message, "snap");
-
-    }
-    if (message.content.indexOf('!swallowWhat') === 0) {
-
-      triggerAudio(message, "swallowWhat");
 
     }
     if (message.content.indexOf('!tinsel') === 0) {
