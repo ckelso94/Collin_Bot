@@ -312,7 +312,7 @@ client.on('message', async message => {
     }
     if (message.content.indexOf('!watch') === 0) {
 
-      triggerAudio(message, "warus");
+      triggerAudio(message, "watch");
 
     }
 
