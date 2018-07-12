@@ -389,6 +389,34 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
     }
     
+    if (newMember.id === '93140127949287424') {
+        
+        if(oldUserChannel === undefined && newUserChannel !== undefined) {
+            
+            randomNum = 1;
+//             randomNum = randomWholeNum(20);
+            
+            if (randomNum === 1) {
+                try {
+                  newUserChannel.join().then(connection => {
+                    const dispatcher = connection.playFile("./assets/audio/kirkWilhelm.mp3");
+                    dispatcher.on("end", end => {
+                        newUserChannel.leave();
+                    });
+                  }); 
+                } catch(err) {
+                  return;   
+                }
+            }
+
+        } else if(newUserChannel === undefined){
+
+            // User leaves a voice channel
+
+        }
+        
+    }
+    
 })
 
 // THIS  MUST  BE  THIS  WAY
