@@ -353,34 +353,45 @@ client.on('message', async message => {
 
 });
 
-// client.on('voiceStateUpdate', (oldMember, newMember) => {
+client.on('voiceStateUpdate', (oldMember, newMember) => {
   
-//     let newUserChannel = newMember.voiceChannel
-//     let oldUserChannel = oldMember.voiceChannel
+    let newUserChannel = newMember.voiceChannel
+    let oldUserChannel = oldMember.voiceChannel
     
 //     let channels = newMember.guild.channels;
 //     var generalChannel = (client.guilds.get(newMember.guild.id)).channels.find("name", "general");
     
-//     if (newMember.id === '93105200365043712') {
+    if (newMember.id === '148630426548699136') {
         
-//         if(oldUserChannel === undefined && newUserChannel !== undefined) {
+        if(oldUserChannel === undefined && newUserChannel !== undefined) {
             
-//             randomNum = randomWholeNum(10);
+            randomNum = 1;
+//             randomNum = randomWholeNum(20);
 //             console.log('randomNum: ' + randomNum);
             
-//             if (randomNum === 1) {
+            if (randomNum === 1) {
 //                 generalChannel.send("Hey, Eeyore (Kelso) is here!", {files: ["./assets/images/eeyore.png"]});
-//             }
+                try {
+                  newUserChannel.join().then(connection => {
+                    const dispatcher = connection.playFile("./assets/audio/warus.mp3");
+                    dispatcher.on("end", end => {
+                        newUserChannel.leave();
+                    });
+                  }); 
+                } catch(err) {
+                  return;   
+                }
+            }
 
-//         } else if(newUserChannel === undefined){
+        } else if(newUserChannel === undefined){
 
-//             // User leaves a voice channel
+            // User leaves a voice channel
 
-//         }
+        }
         
-//     }
+    }
     
-// })
+})
 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
