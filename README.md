@@ -22,6 +22,7 @@ Audio Triggers:
 !tinsel
 !yooo
 !warus
+!watch
 
 Image Triggers:
 !prime
