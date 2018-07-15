@@ -17,6 +17,7 @@ Audio Triggers:
 !lag
 !licker
 !magicResist
+!monkey
 !sameGame
 !snap
 !tinsel
