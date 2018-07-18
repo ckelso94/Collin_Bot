@@ -179,8 +179,19 @@ function statusUpdate(message, statusType, slicePoint) {
 
 client.on('ready', () => {
     console.log('I am ready!');
-    var channel = client.channels.id('93118955123666944');
-    console.log(channel);
+    var voiceChannel = client.channels.get('93118955123666944');
+
+    try {
+      voiceChannel.join().then(connection => {
+        const dispatcher = connection.playFile("./assets/audio/comeOn.mp3");
+        dispatcher.on("end", end => {
+            voiceChannel.leave();
+        });
+      }); 
+    } catch(err) {
+      return;   
+    }
+
 });
 
 client.on('message', async message => {
