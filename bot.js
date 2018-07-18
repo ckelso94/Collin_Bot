@@ -68,14 +68,20 @@ function triggerMessage(message, trigger, msgResponse, shouldDelete) {
 
 }
 
-function triggerAudio(message, trigger) {
+function triggerAudio(message, trigger, voiceChannelId) {
 
   if (TalkedRecently.has(message.author.id + "_" + trigger)) {
     return;
   } else {
 
     isReady = false;
-    var voiceChannel = message.member.voiceChannel;
+    var voiceChannel = null;
+
+    if (voiceChannelId == "") {
+      var voiceChannel = message.member.voiceChannel;
+    } else {
+      var voiceChannel = client.channels.get(voiceChannelId);
+    }
 
     try {
       voiceChannel.join().then(connection => {
@@ -176,22 +182,8 @@ function statusUpdate(message, statusType, slicePoint) {
 
 }
 
-
 client.on('ready', () => {
     console.log('I am ready!');
-    var voiceChannel = client.channels.get('93118955123666944');
-
-    try {
-      voiceChannel.join().then(connection => {
-        const dispatcher = connection.playFile("./assets/audio/comeOn.mp3");
-        dispatcher.on("end", end => {
-            voiceChannel.leave();
-        });
-      }); 
-    } catch(err) {
-      return;   
-    }
-
 });
 
 client.on('message', async message => {
@@ -263,9 +255,15 @@ client.on('message', async message => {
     /********************************************/
     /*              AUDIO TRIGGERS              */
     /********************************************/
+    var splitMessage = message.content.split(" ");
+
     if (message.content.indexOf('!aram') === 0) {
 
-      triggerAudio(message, "goodOleArams");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "goodOleArams", "");
+      } else {
+        triggerAudio(message, "goodOleArams", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!comeOn') === 0) {
