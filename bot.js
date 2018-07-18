@@ -179,6 +179,8 @@ function statusUpdate(message, statusType, slicePoint) {
 
 client.on('ready', () => {
     console.log('I am ready!');
+    var channel = Client.get_channel('93118955123666944');
+    console.log(channel);
 });
 
 client.on('message', async message => {
