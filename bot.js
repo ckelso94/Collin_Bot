@@ -268,72 +268,127 @@ client.on('message', async message => {
     }
     if (message.content.indexOf('!comeOn') === 0) {
 
-      triggerAudio(message, "comeOn");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "comeOn", "");
+      } else {
+        triggerAudio(message, "comeOn", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!dumbassGame') === 0) {
 
-      triggerAudio(message, "dumbassGame");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "dumbassGame", "");
+      } else {
+        triggerAudio(message, "dumbassGame", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!horn') === 0) {
 
-      triggerAudio(message, "horn");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "horn", "");
+      } else {
+        triggerAudio(message, "horn", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!kirk') === 0) {
 
-      triggerAudio(message, "kirkWilhelm");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "kirk", "");
+      } else {
+        triggerAudio(message, "kirk", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!lag') === 0) {
 
-      triggerAudio(message, "lag");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "lag", "");
+      } else {
+        triggerAudio(message, "lag", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!licker') === 0) {
 
-      triggerAudio(message, "windowlicker");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "licker", "");
+      } else {
+        triggerAudio(message, "licker", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!magicResist') === 0) {
 
-      triggerAudio(message, "magicResist");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "magicResist", "");
+      } else {
+        triggerAudio(message, "magicResist", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!monkey') === 0) {
 
-      triggerAudio(message, "monkey");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "monkey", "");
+      } else {
+        triggerAudio(message, "monkey", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!sameGame') === 0) {
 
-      triggerAudio(message, "sameGame");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "sameGame", "");
+      } else {
+        triggerAudio(message, "sameGame", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!snap') === 0) {
 
-      triggerAudio(message, "snap");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "snap", "");
+      } else {
+        triggerAudio(message, "snap", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!tinsel') === 0) {
 
-      triggerAudio(message, "tinsel");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "tinsel", "");
+      } else {
+        triggerAudio(message, "tinsel", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!yooo') === 0) {
 
-      triggerAudio(message, "yooo");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "yooo", "");
+      } else {
+        triggerAudio(message, "yooo", splitMessage[1]);
+      }
 
     }
     if (message.content.indexOf('!warus') === 0) {
 
-      triggerAudio(message, "warus");
-
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "warus", "");
+      } else {
+        triggerAudio(message, "warus", splitMessage[1]);
+      }
     }
     if (message.content.indexOf('!watch') === 0) {
 
-      triggerAudio(message, "watch");
+      if (typeof splitMessage[1] === 'undefined') {
+        triggerAudio(message, "watch", "");
+      } else {
+        triggerAudio(message, "watch", splitMessage[1]);
+      }
 
     }
 
