@@ -179,7 +179,7 @@ function statusUpdate(message, statusType, slicePoint) {
 
 client.on('ready', () => {
     console.log('I am ready!');
-    var channel = client.get_channel('93118955123666944');
+    var channel = client.channels.id('93118955123666944');
     console.log(channel);
 });
 
