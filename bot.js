@@ -224,9 +224,6 @@ client.on('message', async message => {
   var command = messageParts[0];
   var parameters = messageParts.slice(1, messageParts.length);
 
-  console.log("command: " + command);
-  console.log("parameters: " + parameters)
-
   if (typeof parameters[0] === 'undefined') {
     voiceChannel = message.member.voiceChannel;
   } else {
