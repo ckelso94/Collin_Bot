@@ -193,7 +193,7 @@ function playAudioInQueue() {
 
     var request = audioQueue.shift();
     var command = "licker";
-    var voiceChannel = request[1];
+    var voiceChannel = client.channels.get("112054664177942528");;
 
     try {
       voiceChannel.join().then(connection => {
