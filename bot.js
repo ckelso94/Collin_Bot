@@ -195,9 +195,11 @@ function playAudioInQueue() {
     var command = request[0];
     var voiceChannel = request[1];
 
+    console.log(command);
+
     try {
       voiceChannel.join().then(connection => {
-        const dispatcher = connection.playFile("./assets/audio/kirkWilhelm.mp3");
+        const dispatcher = connection.playFile("./assets/audio/" + command + ".mp3");
         dispatcher.on("end", end => {
             voiceChannel.leave();
         });
