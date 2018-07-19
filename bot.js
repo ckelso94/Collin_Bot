@@ -248,62 +248,77 @@ client.on('message', async message => {
 
     case "!aram":
       audioQueue.push(["aram", voiceChannel]);
+      message.delete();
       break;
 
     case "!comeOn":
       audioQueue.push(["comeOn", voiceChannel]);
+      message.delete();
       break;
 
     case "!dumbassGame":
       audioQueue.push(["dumbassGame", voiceChannel]);
+      message.delete();
       break;
 
     case "!horn":
       audioQueue.push(["horn", voiceChannel]);
+      message.delete();
       break;
 
     case "!kirk":
       audioQueue.push(["kirk", voiceChannel]);
+      message.delete();
       break;
 
     case "!lag":
       audioQueue.push(["lag", voiceChannel]);
+      message.delete();
       break;
 
     case "!licker":
       audioQueue.push(["licker", voiceChannel]);
+      message.delete();
       break;
 
     case "!magicResist":
       audioQueue.push(["magicResist", voiceChannel]);
+      message.delete();
       break;
 
     case "!monkey":
       audioQueue.push(["monkey", voiceChannel]);
+      message.delete();
       break;
 
     case "!sameGame":
       audioQueue.push(["sameGame", voiceChannel]);
+      message.delete();
       break;
 
     case "!snap":
       audioQueue.push(["snap", voiceChannel]);
+      message.delete();
       break;
 
     case "!tinsel":
       audioQueue.push(["tinsel", voiceChannel]);
+      message.delete();
       break;
 
     case "!yooo":
       audioQueue.push(["yooo", voiceChannel]);
+      message.delete();
       break;
 
     case "!warus":
       audioQueue.push(["warus", voiceChannel]);
+      message.delete();
       break;
 
     case "!watch":
       audioQueue.push(["watch", voiceChannel]);
+      message.delete();
       break;
 
   }
