@@ -192,7 +192,7 @@ function playAudioInQueue() {
     console.log(audioQueue);
 
     var request = audioQueue.shift();
-    var command = request[0];
+    var command = "licker";
     var voiceChannel = request[1];
 
     try {
