@@ -199,7 +199,7 @@ function playAudioInQueue() {
 
     try {
       voiceChannel.join().then(connection => {
-        const dispatcher = connection.playFile("./assets/audio/licker.mp3");
+        const dispatcher = connection.playFile("./assets/audio/" + trigger + ".mp3");
         dispatcher.on("end", end => {
             voiceChannel.leave();
         });
@@ -281,7 +281,7 @@ client.on('message', async message => {
       break;
 
     case "!licker":
-      audioQueue.push(["licker", voiceChannel]);
+      audioQueue.push(["windowlicker", voiceChannel]);
       message.delete();
       break;
 
