@@ -6,7 +6,6 @@ const TalkedRecently = new Set();
 var conditionOverride = false;
 var allowStatusUpdate = true;
 var isReady = true;
-var clientReady = false;
 var audioQueue = [];
 
 function randomWholeNum(value) {
@@ -190,8 +189,6 @@ function playAudioInQueue() {
     return;
   } else {
 
-    clientReady = false;
-
     console.log(audioQueue);
 
     var request = audioQueue.shift();
@@ -211,8 +208,6 @@ function playAudioInQueue() {
       return;   
     }
 
-    clientReady = true;
-
   }
 
   playAudioInQueue();
@@ -227,112 +222,108 @@ client.on('message', async message => {
 
   if(message.author.bot) return;
 
-  if (clientReady) {
+  var voiceChannelId = null;
 
-    var voiceChannelId = null;
+  var messageParts = message.content.split(' ');
+  var command = messageParts[0];
+  var parameters = messageParts.slice(1, messageParts.length);
 
-    var messageParts = message.content.split(' ');
-    var command = messageParts[0];
-    var parameters = messageParts.slice(1, messageParts.length);
-
-    if (typeof parameters[0] === 'undefined') {
+  if (typeof parameters[0] === 'undefined') {
+    voiceChannel = message.member.voiceChannel;
+  } else {
+    try {
+      voiceChannel = client.channels.get(parameters[0]);
+    } catch(err) {
+      console.log(parameters[0] + " is an invalid voiceChannel");
       voiceChannel = message.member.voiceChannel;
-    } else {
-      try {
-        voiceChannel = client.channels.get(parameters[0]);
-      } catch(err) {
-        console.log(parameters[0] + " is an invalid voiceChannel");
-        voiceChannel = message.member.voiceChannel;
-      }
     }
+  }
 
-    switch (command) {
+  switch (command) {
 
-      case "!help":
-        var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
-        "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
-        "Audio Triggers:\n!aram\n!comeOn\n!dumbassGame\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!monkey\n!sameGame\n!snap\n!tinsel\n!yooo\n!warus\n!watch\n\n" +
-        "Image Triggers:\n!prime\n!zieg\n\n" +
-        "Keywords: (black, fortnite, tank, mexican)```"
-        triggerMessage(message, "help", helpResponse, true);
-        break;
+    case "!help":
+      var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
+      "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
+      "Audio Triggers:\n!aram\n!comeOn\n!dumbassGame\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!monkey\n!sameGame\n!snap\n!tinsel\n!yooo\n!warus\n!watch\n\n" +
+      "Image Triggers:\n!prime\n!zieg\n\n" +
+      "Keywords: (black, fortnite, tank, mexican)```"
+      triggerMessage(message, "help", helpResponse, true);
+      break;
 
-      case "!aram":
-        audioQueue.push(["aram", voiceChannel]);
-        message.delete();
-        break;
+    case "!aram":
+      audioQueue.push(["aram", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!comeOn":
-        audioQueue.push(["comeOn", voiceChannel]);
-        message.delete();
-        break;
+    case "!comeOn":
+      audioQueue.push(["comeOn", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!dumbassGame":
-        audioQueue.push(["dumbassGame", voiceChannel]);
-        message.delete();
-        break;
+    case "!dumbassGame":
+      audioQueue.push(["dumbassGame", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!horn":
-        audioQueue.push(["horn", voiceChannel]);
-        message.delete();
-        break;
+    case "!horn":
+      audioQueue.push(["horn", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!kirk":
-        audioQueue.push(["kirk", voiceChannel]);
-        message.delete();
-        break;
+    case "!kirk":
+      audioQueue.push(["kirk", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!lag":
-        audioQueue.push(["lag", voiceChannel]);
-        message.delete();
-        break;
+    case "!lag":
+      audioQueue.push(["lag", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!licker":
-        audioQueue.push(["windowlicker", voiceChannel]);
-        message.delete();
-        break;
+    case "!licker":
+      audioQueue.push(["windowlicker", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!magicResist":
-        audioQueue.push(["magicResist", voiceChannel]);
-        message.delete();
-        break;
+    case "!magicResist":
+      audioQueue.push(["magicResist", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!monkey":
-        audioQueue.push(["monkey", voiceChannel]);
-        message.delete();
-        break;
+    case "!monkey":
+      audioQueue.push(["monkey", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!sameGame":
-        audioQueue.push(["sameGame", voiceChannel]);
-        message.delete();
-        break;
+    case "!sameGame":
+      audioQueue.push(["sameGame", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!snap":
-        audioQueue.push(["snap", voiceChannel]);
-        message.delete();
-        break;
+    case "!snap":
+      audioQueue.push(["snap", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!tinsel":
-        audioQueue.push(["tinsel", voiceChannel]);
-        message.delete();
-        break;
+    case "!tinsel":
+      audioQueue.push(["tinsel", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!yooo":
-        audioQueue.push(["yooo", voiceChannel]);
-        message.delete();
-        break;
+    case "!yooo":
+      audioQueue.push(["yooo", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!warus":
-        audioQueue.push(["warus", voiceChannel]);
-        message.delete();
-        break;
+    case "!warus":
+      audioQueue.push(["warus", voiceChannel]);
+      message.delete();
+      break;
 
-      case "!watch":
-        audioQueue.push(["watch", voiceChannel]);
-        message.delete();
-        break;
-
-    }
+    case "!watch":
+      audioQueue.push(["watch", voiceChannel]);
+      message.delete();
+      break;
 
     playAudioInQueue();
 
