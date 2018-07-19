@@ -6,6 +6,7 @@ const TalkedRecently = new Set();
 var conditionOverride = false;
 var allowStatusUpdate = true;
 var isReady = true;
+var audioQueue = [];
 
 function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
@@ -182,6 +183,33 @@ function statusUpdate(message, statusType, slicePoint) {
 
 }
 
+function playAudioInQueue() {
+
+  if (audioQueue[0] === 'undefined') {
+    return;
+  } else {
+
+    var request = audioQueue.shift();
+    var command = request[0];
+    var voiceChannel = request[1];
+
+    try {
+      voiceChannel.join().then(connection => {
+        const dispatcher = connection.playFile("./assets/audio/" + command + ".mp3");
+        dispatcher.on("end", end => {
+            voiceChannel.leave();
+        });
+      }); 
+    } catch(err) {
+      return;   
+    }
+
+  }
+
+  playAudioInQueue();
+
+}
+
 client.on('ready', () => {
     console.log('I am ready!');
 });
@@ -190,247 +218,343 @@ client.on('message', async message => {
 
   if(message.author.bot) return;
 
-  if(isReady) {
-      
-    if (message.content.indexOf('!override') === 0 && message.author.id == "148630426548699136") {
-        
-        var overrideValue = message.content.slice(10);
-        if (overrideValue == "true") {
-            conditionOverride = true;
-            message.channel.send("Condition Override Set: " + conditionOverride);
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-            
-        } else {
-            conditionOverride = false;
-            console.log("Condition Override Set: " + conditionOverride);
-            message.channel.send("Condition Override Set: false");
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
-        }
-        
+  var voiceChannelId = null;
+
+  var messageParts = message.content.split(' ');
+  var command = messageParts[0];
+  var parameters = messageParts.slice(1, messageParts.length);
+
+  console.log("command: " + command);
+  console.log("parameters: " + parameters)
+
+  if (typeof parameters[0] === 'undefined') {
+    voiceChannel = message.member.voiceChannel;
+  } else {
+    try {
+      voiceChannel = client.channels.get(parameters[0]);
+    } catch(err) {
+      console.log(parameters[0] + " is an invalid voiceChannel");
+      voiceChannel = message.member.voiceChannel;
     }
+  }
 
-    /********************************************/
-    /*            MESSAGE TRIGGERS              */
-    /********************************************/
-    if (message.content.indexOf('!help') === 0) {
+  switch (command) {
 
+    case "!help":
       var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
       "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
       "Audio Triggers:\n!aram\n!comeOn\n!dumbassGame\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!monkey\n!sameGame\n!snap\n!tinsel\n!yooo\n!warus\n!watch\n\n" +
       "Image Triggers:\n!prime\n!zieg\n\n" +
       "Keywords: (black, fortnite, tank, mexican)```"
       triggerMessage(message, "help", helpResponse, true);
+      break;
 
-    }
-    
-    if (message.content.toLowerCase().includes('overwatch') && (message.author.id == "93107357470433280" || conditionOverride)) {
+    case "!aram":
+      audioQueue.push(["aram", voiceChannel]);
+      break;
 
-      triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
+    case "!comeOn":
+      audioQueue.push(["comeOn", voiceChannel]);
+      break;
 
-    }
+    case "!dumbassGame":
+      audioQueue.push(["dumbassGame", voiceChannel]);
+      break;
 
-    /********************************************/
-    /*             STATUS TRIGGERS              */
-    /********************************************/
-    if (message.content.indexOf('!setGame') === 0) {
+    case "!horn":
+      audioQueue.push(["horn", voiceChannel]);
+      break;
 
-      statusUpdate(message, 0, 9);
+    case "!kirk":
+      audioQueue.push(["kirk", voiceChannel]);
+      break;
 
-    }
-    if (message.content.indexOf('!setListening') === 0) {
+    case "!lag":
+      audioQueue.push(["lag", voiceChannel]);
+      break;
 
-      statusUpdate(message, 2, 14);
+    case "!licker":
+      audioQueue.push(["licker", voiceChannel]);
+      break;
 
-    }
-    if (message.content.indexOf('!setWatching') === 0) {
+    case "!magicResist":
+      audioQueue.push(["magicResist", voiceChannel]);
+      break;
 
-      statusUpdate(message, 3, 13);
+    case "!monkey":
+      audioQueue.push(["monkey", voiceChannel]);
+      break;
 
-    }
+    case "!sameGame":
+      audioQueue.push(["sameGame", voiceChannel]);
+      break;
 
-    /********************************************/
-    /*              AUDIO TRIGGERS              */
-    /********************************************/
-    var splitMessage = message.content.split(" ");
+    case "!snap":
+      audioQueue.push(["snap", voiceChannel]);
+      break;
 
-    if (message.content.indexOf('!aram') === 0) {
+    case "!tinsel":
+      audioQueue.push(["tinsel", voiceChannel]);
+      break;
 
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "goodOleArams", "");
-      } else {
-        triggerAudio(message, "goodOleArams", splitMessage[1]);
-      }
+    case "!yooo":
+      audioQueue.push(["yooo", voiceChannel]);
+      break;
 
-    }
-    if (message.content.indexOf('!comeOn') === 0) {
+    case "!warus":
+      audioQueue.push(["warus", voiceChannel]);
+      break;
 
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "comeOn", "");
-      } else {
-        triggerAudio(message, "comeOn", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!dumbassGame') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "dumbassGame", "");
-      } else {
-        triggerAudio(message, "dumbassGame", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!horn') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "horn", "");
-      } else {
-        triggerAudio(message, "horn", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!kirk') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "kirk", "");
-      } else {
-        triggerAudio(message, "kirk", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!lag') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "lag", "");
-      } else {
-        triggerAudio(message, "lag", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!licker') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "licker", "");
-      } else {
-        triggerAudio(message, "licker", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!magicResist') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "magicResist", "");
-      } else {
-        triggerAudio(message, "magicResist", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!monkey') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "monkey", "");
-      } else {
-        triggerAudio(message, "monkey", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!sameGame') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "sameGame", "");
-      } else {
-        triggerAudio(message, "sameGame", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!snap') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "snap", "");
-      } else {
-        triggerAudio(message, "snap", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!tinsel') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "tinsel", "");
-      } else {
-        triggerAudio(message, "tinsel", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!yooo') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "yooo", "");
-      } else {
-        triggerAudio(message, "yooo", splitMessage[1]);
-      }
-
-    }
-    if (message.content.indexOf('!warus') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "warus", "");
-      } else {
-        triggerAudio(message, "warus", splitMessage[1]);
-      }
-    }
-    if (message.content.indexOf('!watch') === 0) {
-
-      if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "watch", "");
-      } else {
-        triggerAudio(message, "watch", splitMessage[1]);
-      }
-
-    }
-
-    /********************************************/
-    /*              IMAGE TRIGGERS              */
-    /********************************************/
-    if (message.content.indexOf('!prime') === 0) {
-
-      triggerImage(message, "prime", true);
-
-    }
-    if (message.content.indexOf('!zieg') === 0) {
-
-      triggerImage(message, "goat_fucker", true);
-
-    }
-
-    /********************************************/
-    /*             KEYWORD TRIGGERS             */
-    /********************************************/
-    if (message.content.toLowerCase().includes('black')) {
-
-      triggerImage(message, "cmonbruh", false);
-
-    }
-    if (message.content.toLowerCase().includes('fortnite')) {
-
-      triggerImage(message, "fortnite_sucks", false);
-
-    }
-    if (message.content.toLowerCase().includes('tank')) {
-
-      triggerImage(message, "league_of_tanks", false);
-
-    }
-    if (message.content.toLowerCase().includes('mexican')) {
-
-      triggerImage(message, "mexican", false);
-
-    }
+    case "!watch":
+      audioQueue.push(["watch", voiceChannel]);
+      break;
 
   }
+
+  playAudioInQueue();
+
+
+  // if(isReady) {
+      
+  //   if (message.content.indexOf('!override') === 0 && message.author.id == "148630426548699136") {
+        
+  //       var overrideValue = message.content.slice(10);
+  //       if (overrideValue == "true") {
+  //           conditionOverride = true;
+  //           message.channel.send("Condition Override Set: " + conditionOverride);
+  //           message.delete()
+  //             .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+  //             .catch(console.error);
+            
+  //       } else {
+  //           conditionOverride = false;
+  //           console.log("Condition Override Set: " + conditionOverride);
+  //           message.channel.send("Condition Override Set: false");
+  //           message.delete()
+  //             .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+  //             .catch(console.error);
+  //       }
+        
+  //   }
+
+  //   /********************************************/
+  //   /*            MESSAGE TRIGGERS              */
+  //   /********************************************/
+  //   if (message.content.indexOf('!help') === 0) {
+
+  //     var helpResponse = "```Since Your Little Bitch Ass Can't Remember Shit!\n\n" +
+  //     "Presense Triggers:\n!setGame Overwatch\n!setListening Spotify\n!setWatching Youtube\n\n" +
+  //     "Audio Triggers:\n!aram\n!comeOn\n!dumbassGame\n!horn\n!kirk\n!lag\n!licker\n!magicResist\n!monkey\n!sameGame\n!snap\n!tinsel\n!yooo\n!warus\n!watch\n\n" +
+  //     "Image Triggers:\n!prime\n!zieg\n\n" +
+  //     "Keywords: (black, fortnite, tank, mexican)```"
+  //     triggerMessage(message, "help", helpResponse, true);
+
+  //   }
+    
+  //   if (message.content.toLowerCase().includes('overwatch') && (message.author.id == "93107357470433280" || conditionOverride)) {
+
+  //     triggerMessage(message, "zachGif", "https://gfycat.com/gifs/detail/BothAdventurousIslandcanary", false);
+
+  //   }
+
+  //   /********************************************/
+  //   /*             STATUS TRIGGERS              */
+  //   /********************************************/
+  //   if (message.content.indexOf('!setGame') === 0) {
+
+  //     statusUpdate(message, 0, 9);
+
+  //   }
+  //   if (message.content.indexOf('!setListening') === 0) {
+
+  //     statusUpdate(message, 2, 14);
+
+  //   }
+  //   if (message.content.indexOf('!setWatching') === 0) {
+
+  //     statusUpdate(message, 3, 13);
+
+  //   }
+
+  //   /********************************************/
+  //   /*              AUDIO TRIGGERS              */
+  //   /********************************************/
+  //   var splitMessage = message.content.split(" ");
+
+  //   if (message.content.indexOf('!aram') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "goodOleArams", "");
+  //     } else {
+  //       triggerAudio(message, "goodOleArams", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!comeOn') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "comeOn", "");
+  //     } else {
+  //       triggerAudio(message, "comeOn", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!dumbassGame') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "dumbassGame", "");
+  //     } else {
+  //       triggerAudio(message, "dumbassGame", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!horn') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "horn", "");
+  //     } else {
+  //       triggerAudio(message, "horn", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!kirk') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "kirk", "");
+  //     } else {
+  //       triggerAudio(message, "kirk", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!lag') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "lag", "");
+  //     } else {
+  //       triggerAudio(message, "lag", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!licker') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "licker", "");
+  //     } else {
+  //       triggerAudio(message, "licker", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!magicResist') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "magicResist", "");
+  //     } else {
+  //       triggerAudio(message, "magicResist", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!monkey') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "monkey", "");
+  //     } else {
+  //       triggerAudio(message, "monkey", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!sameGame') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "sameGame", "");
+  //     } else {
+  //       triggerAudio(message, "sameGame", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!snap') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "snap", "");
+  //     } else {
+  //       triggerAudio(message, "snap", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!tinsel') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "tinsel", "");
+  //     } else {
+  //       triggerAudio(message, "tinsel", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!yooo') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "yooo", "");
+  //     } else {
+  //       triggerAudio(message, "yooo", splitMessage[1]);
+  //     }
+
+  //   }
+  //   if (message.content.indexOf('!warus') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "warus", "");
+  //     } else {
+  //       triggerAudio(message, "warus", splitMessage[1]);
+  //     }
+  //   }
+  //   if (message.content.indexOf('!watch') === 0) {
+
+  //     if (typeof splitMessage[1] === 'undefined') {
+  //       triggerAudio(message, "watch", "");
+  //     } else {
+  //       triggerAudio(message, "watch", splitMessage[1]);
+  //     }
+
+  //   }
+
+  //   /********************************************/
+  //   /*              IMAGE TRIGGERS              */
+  //   /********************************************/
+  //   if (message.content.indexOf('!prime') === 0) {
+
+  //     triggerImage(message, "prime", true);
+
+  //   }
+  //   if (message.content.indexOf('!zieg') === 0) {
+
+  //     triggerImage(message, "goat_fucker", true);
+
+  //   }
+
+  //   /********************************************/
+  //   /*             KEYWORD TRIGGERS             */
+  //   ******************************************
+  //   if (message.content.toLowerCase().includes('black')) {
+
+  //     triggerImage(message, "cmonbruh", false);
+
+  //   }
+  //   if (message.content.toLowerCase().includes('fortnite')) {
+
+  //     triggerImage(message, "fortnite_sucks", false);
+
+  //   }
+  //   if (message.content.toLowerCase().includes('tank')) {
+
+  //     triggerImage(message, "league_of_tanks", false);
+
+  //   }
+  //   if (message.content.toLowerCase().includes('mexican')) {
+
+  //     triggerImage(message, "mexican", false);
+
+  //   }
+
+  // }
 
 });
 
