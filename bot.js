@@ -199,7 +199,7 @@ function playAudioInQueue() {
 
     try {
       voiceChannel.join().then(connection => {
-        const dispatcher = connection.playFile("./assets/audio/" + command + ".mp3");
+        const dispatcher = connection.playFile("./assets/audio/licker.mp3");
         dispatcher.on("end", end => {
             voiceChannel.leave();
         });
