@@ -185,29 +185,32 @@ function statusUpdate(message, statusType, slicePoint) {
 
 function playAudioInQueue() {
 
-  if (audioQueue[0] === 'undefined') {
+  if (typeof audioQueue[0] === 'undefined') {
     return;
   } else {
 
+    console.log(audioQueue);
+
+    var request = audioQueue.shift();
+
     try {
-
-      console.log(audioQueue);
-
-      var request = audioQueue.shift();
-      var command = request[0];
-      var voiceChannel = request[1];
-
-      try {
-        voiceChannel.join().then(connection => {
-          const dispatcher = connection.playFile("./assets/audio/" + command + ".mp3");
-          dispatcher.on("end", end => {
-              voiceChannel.leave();
-          });
-        }); 
-      } catch(err) {
-        return;
+      if (typeof request[0] !== 'undefined') {
+        var command = request[0];
       }
+      if (typeof request[1] !== 'undefined') {
+        var voiceChannel = request[1];
+      }
+    } catch(err) {
+      return;
+    }
 
+    try {
+      voiceChannel.join().then(connection => {
+        const dispatcher = connection.playFile("./assets/audio/" + command + ".mp3");
+        dispatcher.on("end", end => {
+            voiceChannel.leave();
+        });
+      }); 
     } catch(err) {
       return;
     }
