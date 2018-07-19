@@ -192,7 +192,9 @@ function playAudioInQueue() {
     console.log(audioQueue);
 
     var request = audioQueue.shift();
-    var command = request[0];
+    if (request[0] !== 'undefined') {
+      var command = request[0];
+    }
     var voiceChannel = request[1];
 
     try {
