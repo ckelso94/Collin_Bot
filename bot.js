@@ -192,17 +192,8 @@ function playAudioInQueue() {
     console.log(audioQueue);
 
     var request = audioQueue.shift();
-
-    try {
-      if (typeof request[0] !== 'undefined') {
-        var command = request[0];
-      }
-      if (typeof request[1] !== 'undefined') {
-        var voiceChannel = request[1];
-      }
-    } catch(err) {
-      return;
-    }
+    var command = request[0];
+    var voiceChannel = request[1];
 
     try {
       voiceChannel.join().then(connection => {
