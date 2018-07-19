@@ -197,14 +197,13 @@ function playAudioInQueue() {
 
     try {
       voiceChannel.join().then(connection => {
-        const dispatcher = connection.playFile("./assets/audio/" + command + ".mp3");
+        const dispatcher = connection.playFile("./assets/audio/kirkWilhelm.mp3");
         dispatcher.on("end", end => {
             voiceChannel.leave();
         });
       }); 
     } catch(err) {
-      console.log(err);
-      return;
+      return;   
     }
 
   }
@@ -613,7 +612,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
         if(oldUserChannel === undefined && newUserChannel !== undefined) {
             
-            randomNum = randomWholeNum(1);
+            randomNum = randomWholeNum(20);
             
             if (randomNum === 1) {
                 try {
