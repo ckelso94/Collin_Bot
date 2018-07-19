@@ -203,6 +203,7 @@ function playAudioInQueue() {
         });
       }); 
     } catch(err) {
+      console.log(err);
       return;
     }
 
