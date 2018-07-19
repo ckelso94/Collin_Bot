@@ -189,6 +189,8 @@ function playAudioInQueue() {
     return;
   } else {
 
+    console.log(audioQueue);
+
     var request = audioQueue.shift();
     var command = request[0];
     var voiceChannel = request[1];
