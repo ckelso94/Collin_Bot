@@ -12,8 +12,8 @@ Presense Triggers:
 Audio Triggers:
 !aram
 !celsoHere
-!comeOn
 !dumbassGame
+!fortFucker
 !horn
 !kirk
 !lag
