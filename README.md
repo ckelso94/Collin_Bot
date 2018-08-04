@@ -13,6 +13,7 @@ Audio Triggers:
 !aram
 !celsoHere
 !croissant
+!croissantBass
 !dumbassGame
 !fortFucker
 !horn
