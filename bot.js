@@ -269,9 +269,9 @@ client.on('message', async message => {
     if (message.content.indexOf('!bass') === 0) {
 
       if (typeof splitMessage[1] === 'undefined') {
-        triggerAudio(message, "croissantBass", "");
+        triggerAudio(message, "bass", "");
       } else {
-        triggerAudio(message, "croissantBass", splitMessage[1]);
+        triggerAudio(message, "bass", splitMessage[1]);
       }
 
     }
