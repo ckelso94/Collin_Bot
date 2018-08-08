@@ -266,33 +266,33 @@ client.on('message', async message => {
       }
 
     }      
-    if (message.content.indexOf('!bass') === 0) {
+//     if (message.content.indexOf('!bass') === 0) {
         
-      if (!TalkedRecently.has("bass_timeout")) {
+//       if (!TalkedRecently.has("bass_timeout")) {
 
-        if (typeof splitMessage[1] === 'undefined') {
-          triggerAudio(message, "bass", "");
-        } else {
-          triggerAudio(message, "bass", splitMessage[1]);
-        }
+//         if (typeof splitMessage[1] === 'undefined') {
+//           triggerAudio(message, "bass", "");
+//         } else {
+//           triggerAudio(message, "bass", splitMessage[1]);
+//         }
           
-        TalkedRecently.add("bass_timeout");
-        setTimeout(() => {
-          // Allows the command to be played again after 10 minutes
-          TalkedRecently.delete("bass_timeout");
-        }, 600000);
+//         TalkedRecently.add("bass_timeout");
+//         setTimeout(() => {
+//           // Allows the command to be played again after 10 minutes
+//           TalkedRecently.delete("bass_timeout");
+//         }, 600000);
           
-      } else {
+//       } else {
        
-          message.channel.send("Command is on a Timeout");
+//           message.channel.send("Command is on a Timeout");
           
-          message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-              .catch(console.error);
+//           message.delete()
+//               .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+//               .catch(console.error);
           
-      }
+//       }
 
-    }
+//     }
     if (message.content.indexOf('!celsoHere') === 0) {
 
       if (typeof splitMessage[1] === 'undefined') {
