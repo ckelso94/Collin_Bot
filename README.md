@@ -11,7 +11,6 @@ Presense Triggers:
 
 Audio Triggers:
 !aram
-!bass
 !celsoHere
 !croissant
 !croissantBass
