@@ -215,7 +215,7 @@ client.on('message', async message => {
     }
     if (message.content.indexOf('!amazon') === 0 && message.author.id == "148630426548699136") {
         
-        var amazonValue = message.content.slice(10);
+        var amazonValue = message.content.slice(8);
         if (amazonValue == "true") {
             allowAmazonLinks = true;
             message.channel.send("Amazon Links Allowed Set: " + allowAmazonLinks);
