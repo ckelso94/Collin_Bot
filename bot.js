@@ -213,7 +213,7 @@ client.on('message', async message => {
         }
         
     }
-    if (message.content.indexOf('!amazon') === 0 && message.author.id == "148630426548699136") {
+    if (message.content.indexOf('!amazon') === 0) {
         
         var amazonValue = message.content.slice(8);
         if (amazonValue == "true") {
