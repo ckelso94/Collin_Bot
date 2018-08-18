@@ -583,6 +583,14 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
     }
     
+    client.on('guildMemberAdd', member => {
+        
+        member.addRole('478762864530817036')
+            .then(console.log)
+            .catch(console.error);
+        
+    });
+    
 })
 
 // THIS  MUST  BE  THIS  WAY
