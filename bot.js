@@ -7,6 +7,7 @@ var conditionOverride = false;
 var allowAmazonLinks = false;
 var allowStatusUpdate = true;
 var isReady = true;
+var vaultOpen = false;
 
 function randomWholeNum(value) {
     return Math.floor(Math.random() * value) + 1;
@@ -233,6 +234,26 @@ client.on('message', async message => {
         }
         
     }
+    if (message.content.indexOf('!vaultOpen') === 0 && message.author.id == "148630426548699136") {
+        
+        var vaultOpenValue = message.content.slice(11);
+        if (vaultOpenValue == "true") {
+            vaultOpen = true;
+            message.channel.send("Vault Open Set: " + vaultOpen);
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+            
+        } else {
+            vaultOpen = false;
+            console.log("Condition Override Set: " + vaultOpen);
+            message.channel.send("Vault Open Set: false");
+            message.delete()
+              .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+              .catch(console.error);
+        }
+        
+    }
 
     /********************************************/
     /*            MESSAGE TRIGGERS              */
@@ -289,7 +310,7 @@ client.on('message', async message => {
     }      
     if (message.content.indexOf('!bass') === 0) {
         
-      if (!TalkedRecently.has("bass_timeout")) {
+      if (!TalkedRecently.has("bass_timeout") && vaultOpen) {
 
         if (typeof splitMessage[1] === 'undefined') {
           triggerAudio(message, "bass", "");
