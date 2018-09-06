@@ -16,6 +16,7 @@ Audio Triggers:
 !croissantBass
 !dumbassGame
 !fortFucker
+!goldfish
 !horn
 !kirk
 !lag
@@ -29,6 +30,7 @@ Audio Triggers:
 !yooo
 !warus
 !watch
+!weeee
 
 Image Triggers:
 !prime
